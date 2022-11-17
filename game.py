@@ -1,4 +1,5 @@
-
+specialCars = []
+possibleBoards=[]
 class Car:
 	def __init__(self,letter):
 		self.letter = letter
@@ -23,7 +24,6 @@ class Car:
 	#Generate a new board based on the possible moves (TO BE ADDED)
 	def MoveCar(self,board):
 		if(fuel!=0):
-			print(board[i][j])
 			if(vertical):
 				Vertical(board)
 			else:
@@ -43,12 +43,20 @@ class Car:
 	def Horizontal(self,board):
 		i=x[0]
 		ii = x[-1]
-		
-		if(x==0):
-			if(board[x][])
-		else if(x==5):
-			print()
+		j=y[0]
+		if(i==0):
+			while(ii<6 and board[ii+1][j]=="."):
+        for a in range(ii,6):
+          self.x[a]+=1
+        
+   
+		else if(ii==5):
+      while(i>-1 and board[i-1][j]=="."):
+        for a in range(0,i):
+          self.x[a]-=1
+    
 		else:
+          print("uh oh")
 
 
 
@@ -101,12 +109,11 @@ class Board:
 		self.cars[0].MoveCar(self.matrix)
 	
 	def Move(self):
-		tempMatrix = self.matrix
 		arrayMatrix = []
 		for car in self.cars:
 			car.MoveCar(tempMatrix)
 			
-		return
+		return arrayMatrix
 	
 	
 	def __str__(self):
@@ -114,14 +121,26 @@ class Board:
 		for i in self.cars:
 			output+=str(i)
 		return output
+
+class BoardGen:
+  def __init__(self,cost,cars,special,board):
+		self.cost = cost
+    self.cars = cars
+    self.special = special'
+    self.matrix = board
+  
+  def __str__(self):
+		output=''
+		for i in self.cars:
+			output+=str(i)
+		return output
+  def Move(self):
+		arrayMatrix = []
+		for car in self.cars:
+			car.MoveCar(tempMatrix)
+			
+		return arrayMatrix
+  
 			
 
-				
 
-c = 'BBIJ....IJCC..IAAMGDDK.MGH.KL.GHFFL. B0 J2'
-game=Board(c)
-
-
-
-			
-	
