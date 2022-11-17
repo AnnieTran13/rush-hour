@@ -21,8 +21,34 @@ class Car:
 		return
 
 	#Generate a new board based on the possible moves (TO BE ADDED)
-	def Move(self, board):
-		return
+	def MoveCar(self,board):
+		if(fuel!=0):
+			print(board[i][j])
+			if(vertical):
+				Vertical(board)
+			else:
+				Horizontal(board)
+					
+					
+		return board
+		
+	def Vertical(self,board):
+		if(y==0):
+			print()
+		else if(y==5):
+			print()
+		else:
+			print()
+	
+	def Horizontal(self,board):
+		i=x[0]
+		ii = x[-1]
+		
+		if(x==0):
+			if(board[x][])
+		else if(x==5):
+			print()
+		else:
 
 
 
@@ -72,10 +98,15 @@ class Board:
 		for car in self.cars:
 			car.orientation()
 			
-		print(str(self.cars[2].vertical))
-		print(str(self.cars[3].vertical))
+		self.cars[0].MoveCar(self.matrix)
 	
-	
+	def Move(self):
+		tempMatrix = self.matrix
+		arrayMatrix = []
+		for car in self.cars:
+			car.MoveCar(tempMatrix)
+			
+		return
 	
 	
 	def __str__(self):
@@ -84,12 +115,12 @@ class Board:
 			output+=str(i)
 		return output
 			
-		
+
 				
 
 c = 'BBIJ....IJCC..IAAMGDDK.MGH.KL.GHFFL. B0 J2'
 game=Board(c)
-print(game)
+
 
 
 			
