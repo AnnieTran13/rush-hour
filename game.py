@@ -6,6 +6,7 @@ from operator import itemgetter
 
 
 open = []
+closed = []
 
 class Car:
 	def __init__(self,letter):
@@ -32,8 +33,9 @@ class Car:
 
 
 class BoardGen:
-	def __init__(self, cost, cars, special):
+	def __init__(self, cost, cars, special, path):
 		self.cost = cost
+		self.path = path
 		self.cars = cars
 		self.special = special
 		self.string = ""
@@ -46,6 +48,10 @@ class BoardGen:
 		for car in self.cars:
 			for i in range(0, len(car.x)):
 				self.board[car.x[i]][car.y[i]]=car.letter
+				if(car.x[i]==2 and car.y[i]==5 and self.board[car.x[i]][car.y[i]]=='A'):
+					print("Found a solution")
+					print (self.path)
+					exit()
 
 		for i in range(0,6):
 			for j in range(0, 6):
@@ -65,7 +71,7 @@ class BoardGen:
 			while row + fuelCost < 6 and self.board[row+fuelCost][columm] == ".":
 				cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -82,7 +88,7 @@ class BoardGen:
 			while row - fuelCost > -1 and self.board[row - fuelCost][columm] == ".":
 				cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -103,7 +109,7 @@ class BoardGen:
 			while columm + fuelCost < 6 and self.board[row][columm + fuelCost] == ".":
 				cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -121,11 +127,10 @@ class BoardGen:
 			while columm - fuelCost > -1 and self.board[row][columm - fuelCost] == ".":
 				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
-
 				cars_copy = copy.deepcopy(self.cars)
 				fuelCost += 1
 
@@ -193,9 +198,10 @@ class Board:
 		#Set proper fuel level to each car
 		for car in self.cars:
 			for f in self.fuel:
-				if(f[0]==car.letter):
-					car.changeFuel(f[1])
-					self.special.append(car.letter)
+				if(len(f)>0):
+					if(f[0]==car.letter):
+						car.changeFuel(f[1])
+						self.special.append(car.letter)
 		for car in self.cars:
 			car.orientation()
 
@@ -213,7 +219,7 @@ class Board:
 			while row + fuelCost < 6 and self.matrix[row+fuelCost][columm] == ".":
 				cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -230,7 +236,7 @@ class Board:
 			while row - fuelCost > -1 and self.matrix[row - fuelCost][columm] == ".":
 				cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -251,7 +257,7 @@ class Board:
 			while columm + fuelCost < 6 and self.matrix[row][columm + fuelCost] == ".":
 				cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -269,7 +275,7 @@ class Board:
 			while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
 				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
 				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
 					open.append({"priority": self.cost + fuelCost,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
@@ -281,6 +287,7 @@ class Board:
 		return
 	#Generate a new board based on the possible moves (TO BE ADDED)
 	def MoveCar(self):
+		closed.append(self.string)
 		self.verticalMove()
 		self.horizontalMove()
 	
@@ -291,13 +298,29 @@ class Board:
 		return output
 
 
-  
-c = 'BB.PP...I.CC..IAAMGDDK.MGH.KL.GHFFL. B0 J2'
+def removeClosed():
+	for index in range(0, len(open)):
+		for exploredState in closed:
+			if open[index]['string'] == exploredState:
+				del open[index]
+				return True
+	return False
+
+
+c= '..I...BBI.K.GHAAKLGH...LG..JEEFF.J..'
+#c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
-open = sorted(open, key=itemgetter('priority'))
-open[0]['board'].MoveCar()
-del open[0]
-open = sorted(open, key=itemgetter('priority'))
-print(open)
+while (len(open)>0):
+
+	foundClosed = True
+	while(foundClosed):
+		foundClosed=removeClosed()
+	open = sorted(open, key=itemgetter('priority'))
+	print(str(len(open)) + " " + str(len(closed)))
+	if len(open)>0:
+		open[0]['board'].MoveCar()
+		closed.append(open[0]['string'])
+		del open[0]
+
 
