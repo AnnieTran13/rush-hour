@@ -30,6 +30,7 @@ class BoardGen:
 		self.cost = cost
 		self.cars = cars
 		self.special = special
+		self.string = ""
 		self.board = [["."]*6 for i in range(0,6)]
 
 		for i in range(0, 6):
@@ -40,10 +41,11 @@ class BoardGen:
 			for i in range(0, len(car.x)):
 				self.board[car.x[i]][car.y[i]]=car.letter
 
-		print("\n")
 		for i in range(0,6):
-			print(self.board[i])
-		print("\n")
+			for j in range(0, 6):
+				self.string+=str(self.board[i][j])
+
+
 
 
 
@@ -66,6 +68,7 @@ class Board:
 		self.inp = inp[:36]
 		self.fuel = inp[37:].split(" ")
 		self.matrix = [["0"]*6 for i in range(0,6)]
+		self.string=""
 		n=0
 		for i in range(0,6):
 			for j in range(0,6):
@@ -74,6 +77,9 @@ class Board:
 		#print matrix
 		for i in range(0,6):
 			print(self.matrix[i])
+		for i in range(0,6):
+			for j in range(0, 6):
+				self.string += str(self.matrix[i][j])
 
 		#Find all unique letters
 		letters=[]
@@ -109,6 +115,37 @@ class Board:
 
 
 	def verticalMove(self):
+		cars_copy = copy.deepcopy(self.cars)
+		for i in range(0, len(cars_copy)):
+			if (cars_copy[i].vertical == False):
+				continue
+			row = cars_copy[i].x[-1]
+			columm = cars_copy[i].y[0]
+			fuelCost = 1
+			while row + fuelCost < 6 and self.matrix[row+fuelCost][columm] == ".":
+				cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
+				if (int(cars_copy[i].fuel) >= int(fuelCost)):
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					possibleBoards.append(generatedBoard)
+				cars_copy = copy.deepcopy(self.cars)
+				fuelCost += 1
+
+		cars_copy = copy.deepcopy(self.cars)
+		for i in range(0, len(cars_copy)):
+			if (cars_copy[i].vertical == False):
+				continue
+			row = cars_copy[i].x[0]
+			columm = cars_copy[i].y[0]
+			fuelCost = 1
+			while row - fuelCost > -1 and self.matrix[row - fuelCost][columm] == ".":
+				cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
+				if (int(cars_copy[i].fuel) >= int(fuelCost)):
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					possibleBoards.append(generatedBoard)
+				cars_copy = copy.deepcopy(self.cars)
+				fuelCost += 1
+
+
 		return
 
 	def horizontalMove(self):
