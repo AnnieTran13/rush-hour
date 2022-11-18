@@ -6,7 +6,7 @@ from operator import itemgetter
 
 
 open = []
-closed = []
+closed = {}
 
 class Car:
 	def __init__(self,letter):
@@ -45,6 +45,15 @@ class BoardGen:
 			for j in range(0, 6):
 				self.board[i][j] = '.'
 
+		finalMatrix=True;
+		while(finalMatrix):
+			finalMatrix=self.createMatrix()
+
+		for i in range(0,6):
+			for j in range(0, 6):
+				self.string+=str(self.board[i][j])
+
+	def createMatrix(self):
 		for car in self.cars:
 			for i in range(0, len(car.x)):
 				self.board[car.x[i]][car.y[i]]=car.letter
@@ -52,10 +61,10 @@ class BoardGen:
 					print("Found a solution")
 					print (self.path)
 					exit()
-
-		for i in range(0,6):
-			for j in range(0, 6):
-				self.string+=str(self.board[i][j])
+				if (car.x[i] == 2 and car.y[i] == 5):
+					self.cars.remove(car)
+					return True
+		return False
 
 	def __str__(self):
 		return self.string
@@ -287,7 +296,7 @@ class Board:
 		return
 	#Generate a new board based on the possible moves (TO BE ADDED)
 	def MoveCar(self):
-		closed.append(self.string)
+		closed[self.string]= self.string
 		self.verticalMove()
 		self.horizontalMove()
 	
@@ -300,14 +309,18 @@ class Board:
 
 def removeClosed():
 	for index in range(0, len(open)):
-		for exploredState in closed:
-			if open[index]['string'] == exploredState:
+			try:
+				key = open[index]['string']
+				found = closed[key]
 				del open[index]
 				return True
+			except:
+				found = 0 #do nothing
+
 	return False
 
 
-c= '..I...BBI.K.GHAAKLGH...LG..JEEFF.J..'
+c= '..I...BBI.K.GHAAKLGHDDKLG..JEEFF.J..'
 #c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
@@ -317,10 +330,11 @@ while (len(open)>0):
 	while(foundClosed):
 		foundClosed=removeClosed()
 	open = sorted(open, key=itemgetter('priority'))
-	print(str(len(open)) + " " + str(len(closed)))
+	#print(str(len(open)) + " " + str(len(closed)))
 	if len(open)>0:
 		open[0]['board'].MoveCar()
-		closed.append(open[0]['string'])
+		key = open[0]['string']
+		closed[key]=key
 		del open[0]
 
 
