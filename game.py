@@ -3,6 +3,7 @@ import copy
 specialCars = []
 from queue import PriorityQueue
 from operator import itemgetter
+import time
 
 
 open = []
@@ -60,6 +61,7 @@ class BoardGen:
 				if(car.x[i]==2 and car.y[i]==5 and self.board[car.x[i]][car.y[i]]=='A'):
 					print("Found a solution")
 					print (self.path)
+					print("--- %s seconds ---" % (time.time() - start_time))
 					exit()
 				if (car.x[i] == 2 and car.y[i] == 5):
 					self.cars.remove(car)
@@ -320,12 +322,13 @@ def removeClosed():
 	return False
 
 
-c= '..I...BBI.K.GHAAKLGHDDKLG..JEEFF.J..'
+start_time = time.time()
+#c= '...GF...BGF.AABCF....CDD...C....EE..'
+c= 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII J0 B4'
 #c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
 while (len(open)>0):
-
 	foundClosed = True
 	while(foundClosed):
 		foundClosed=removeClosed()
@@ -337,4 +340,5 @@ while (len(open)>0):
 		closed[key]=key
 		del open[0]
 
-
+print("No solution found")
+print("--- %s seconds ---" % (time.time() - start_time))
