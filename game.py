@@ -121,8 +121,9 @@ class Board:
 			fuelCost = 1
 			while columm + fuelCost < 6 and self.matrix[row][columm + fuelCost] == ".":
 				cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
-				generatedBoard =BoardGen(self.cost+fuelCost, cars_copy, self.special)
-				possibleBoards.append(generatedBoard)
+				if (int(cars_copy[i].fuel) >= int(fuelCost)):
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					possibleBoards.append(generatedBoard)
 				cars_copy = copy.deepcopy(self.cars)
 				fuelCost += 1
 
@@ -136,8 +137,9 @@ class Board:
 			fuelCost = 1
 			while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
 				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
-				generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
-				possibleBoards.append(generatedBoard)
+				if (int(cars_copy[i].fuel) >= int(fuelCost)):
+					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+					possibleBoards.append(generatedBoard)
 				cars_copy = copy.deepcopy(self.cars)
 				fuelCost += 1
 
