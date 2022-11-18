@@ -127,6 +127,21 @@ class Board:
 				fuelCost += 1
 
 
+		cars_copy = copy.deepcopy(self.cars)
+		for i in range(0, len(cars_copy)):
+			if (cars_copy[i].vertical == True):
+				continue
+			columm = cars_copy[i].y[0]
+			row = cars_copy[i].x[0]
+			fuelCost = 1
+			while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
+				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
+				generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special)
+				possibleBoards.append(generatedBoard)
+				cars_copy = copy.deepcopy(self.cars)
+				fuelCost += 1
+
+
 		return
 	#Generate a new board based on the possible moves (TO BE ADDED)
 	def MoveCar(self):
@@ -142,8 +157,7 @@ class Board:
 
 
   
-c = 'BB......I.CC..IAAMGDDK.MGH.KL.GHFFL. B0 J2'
+c = 'BB.PP...I.CC..IAAMGDDK.MGH.KL.GHFFL. B0 J2'
 game=Board(c)
 game.MoveCar()
-print(possibleBoards)
 #print(game)
