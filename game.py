@@ -345,8 +345,8 @@ def removeClosed():
 
 
 start_time = time.time()
-#c= '...GF...BGF.AABCF....CDD...C....EE..'
-c= '..I.KLBBI.KLAA..K.GH.DD.GH.JEEGFFJ.. K99 G99 H99 A98 L98 D99 F99'
+c= '...GF...BGF.AABCF....CDD...C....EE..'
+#c= 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0'
 #c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
