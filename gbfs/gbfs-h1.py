@@ -2,13 +2,11 @@ from queue import PriorityQueue
 import copy
 
 specialCars = []
-from queue import PriorityQueue
 from operator import itemgetter
 import time
 
 open = []
 closed = {}
-
 
 class Car:
     def __init__(self, letter):
@@ -34,10 +32,10 @@ class Car:
 
 class BoardGen:
     def __init__(self, cars, special, path):
-        self.heuristic = 100;
+        self.heuristic = 100
         self.path = path
         self.cars = cars
-        self.carA= 0
+        self.carA = 0
         self.special = special
         self.string = ""
         self.board = [["."] * 6 for i in range(0, 6)]
@@ -46,7 +44,7 @@ class BoardGen:
             for j in range(0, 6):
                 self.board[i][j] = '.'
 
-        finalMatrix = True;
+        finalMatrix = True
         while (finalMatrix):
             finalMatrix = self.createMatrix()
 
@@ -54,20 +52,19 @@ class BoardGen:
             for j in range(0, 6):
                 self.string += str(self.board[i][j])
 
-        self.heuristic=self.numberCarsBlocking()
+        self.heuristic = self.numberCarsBlocking()
 
+    # h1: The number of blocked cars
     def numberCarsBlocking(self):
-        indivisualBlockingCars = []
+        individualBlockingCars = []
         row = 2
-        columm = self.carA+1
-        while (columm<6):
-                    #print (self.board[row][columm])
-            if self.board[row][columm] not in indivisualBlockingCars and self.board[row][columm]!=".":
-                indivisualBlockingCars.append(self.board[row][columm])
-            columm += 1
-        return len(indivisualBlockingCars)
-
-
+        column = self.carA + 1
+        while (column < 6):
+            # print (self.board[row][column])
+            if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
+                individualBlockingCars.append(self.board[row][column])
+            column += 1
+        return len(individualBlockingCars)
 
     def createMatrix(self):
         for car in self.cars:
@@ -178,7 +175,7 @@ class Board:
         self.cost = 0
         self.heuristic = 10
         self.special = []
-        # Seperate board from fuel amounts
+        # Separate board from fuel amounts
         self.inp = inp[:36]
         self.fuel = inp[37:].split(" ")
         self.matrix = [["0"] * 6 for i in range(0, 6)]
@@ -355,7 +352,8 @@ def removeClosed():
 
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
-c = '..BBBM.CC.DM.AALDMJ.KLEEJ.K.GGJHHHII B2 C99 D99 A99 K99 L98 J0 G98'
+# c = '..BBBM.CC.DM.AALDMJ.KLEEJ.K.GGJHHHII B2 C99 D99 A99 K99 L98 J0 G98'
+c = 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0'
 # c = 'BB.............AAM.....M............'
 game = Board(c)
 game.MoveCar()
