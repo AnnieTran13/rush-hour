@@ -13,6 +13,7 @@ closed = {}
 
 
 
+
 class Car:
 	def __init__(self,letter):
 		self.letter = letter
@@ -66,7 +67,8 @@ class BoardGen:
 					print("Found a solution")
 					print (self.path)
 					print("--- %s seconds ---" % (time.time() - start_time))
-					exit()
+					openQueue.clear()
+					closed.clear()
 				if (car.x[i] == 2 and car.y[i] == 5):
 					self.cars.remove(car)
 					return True
@@ -242,7 +244,8 @@ class Board:
 					for i in range(0, 6):
 						print(self.matrix[i])
 					print("--- %s seconds ---" % (time.time() - start_time))
-					exit()
+					openQueue.clear()
+					closed.clear()
 				if car.x[i] == 2 and car.y[i] == 5:
 					self.cars.remove(car)
 					return True
@@ -362,28 +365,33 @@ root.title("Hello There")
 
 root.filename=filedialog.askopenfilename(title="Select A File",filetypes=(("text files","txt"),))
 theFile = open(root.filename,"r")
-print(theFile.readlines())
+while(True):
+	start_time = time.time()
+	line = theFile.readline()
+	line=line[6:]
+	print(line)
+	if not line:
+		break
+	game = Board(line)
+	game.MoveCar()
+	while (len(openQueue) > 0):
+		print(len(openQueue))
+		foundClosed = True
+		while (foundClosed):
+			foundClosed = removeClosed()
+		openQueue = sorted(openQueue, key=itemgetter('priority'))
+		# print(str(len(openQueue)) + " " + str(len(closed)))
+		if len(openQueue) > 0:
+			openQueue[0]['board'].MoveCar()
+			key = openQueue[0]['string']
+			closed[key] = key
+			del openQueue[0]
+
+	print("No solution found")
+	print("--- %s seconds ---" % (time.time() - start_time))
 
 
-start_time = time.time()
-# c= '...GF...BGF.AABCF....CDD...C....EE..'
-c= 'IIB...C.BHHHC.AAD.....D.EEGGGF.....F'
-#c = 'BB.............AAM.....M............'
 
 
-game=Board(c)
-game.MoveCar()
-while (len(openQueue)>0):
-	foundClosed = True
-	while(foundClosed):
-		foundClosed=removeClosed()
-	openQueue = sorted(openQueue, key=itemgetter('priority'))
-	#print(str(len(openQueue)) + " " + str(len(closed)))
-	if len(openQueue)>0:
-		openQueue[0]['board'].MoveCar()
-		key = openQueue[0]['string']
-		closed[key]=key
-		del openQueue[0]
 
-print("No solution found")
-print("--- %s seconds ---" % (time.time() - start_time))
+
