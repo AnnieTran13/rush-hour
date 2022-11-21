@@ -81,10 +81,10 @@ class BoardGen:
 			fuelCost = 1
 			while row + fuelCost < 6 and self.board[row+fuelCost][columm] == ".":
 				cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -99,10 +99,10 @@ class BoardGen:
 			fuelCost = 1
 			while row - fuelCost > -1 and self.board[row - fuelCost][columm] == ".":
 				cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -121,10 +121,10 @@ class BoardGen:
 			fuelCost = 1
 			while columm + fuelCost < 6 and self.board[row][columm + fuelCost] == ".":
 				cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -140,10 +140,10 @@ class BoardGen:
 			fuelCost = 1
 			while columm - fuelCost > -1 and self.board[row][columm - fuelCost] == ".":
 				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, self.path + cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -255,10 +255,10 @@ class Board:
 			fuelCost = 1
 			while row + fuelCost < 6 and self.matrix[row+fuelCost][columm] == ".":
 				cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -273,10 +273,10 @@ class Board:
 			fuelCost = 1
 			while row - fuelCost > -1 and self.matrix[row - fuelCost][columm] == ".":
 				cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -295,10 +295,10 @@ class Board:
 			fuelCost = 1
 			while columm + fuelCost < 6 and self.matrix[row][columm + fuelCost] == ".":
 				cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -314,10 +314,10 @@ class Board:
 			fuelCost = 1
 			while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
 				cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
-				if (int(cars_copy[i].fuel) >= int(fuelCost)):
-					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
-					generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special, cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + fuelCost,
+				if (int(cars_copy[i].fuel) >= 1):
+					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
+					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
+					open.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 
@@ -354,7 +354,7 @@ def removeClosed():
 
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
-c= 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0 A4'
+c= 'BBB..MCCDDPMAAKLPMJ.KLEEJ.GG..JHHHII B4 J0 A4'
 #c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
