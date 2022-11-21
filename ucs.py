@@ -10,7 +10,7 @@ from tkinter import filedialog
 
 openQueue = []
 closed = {}
-
+solutionFound=False
 
 
 
@@ -67,8 +67,8 @@ class BoardGen:
 					print("Found a solution")
 					print (self.path)
 					print("--- %s seconds ---" % (time.time() - start_time))
-					openQueue.clear()
-					closed.clear()
+					global solutionFound
+					solutionFound=True
 				if (car.x[i] == 2 and car.y[i] == 5):
 					self.cars.remove(car)
 					return True
@@ -244,8 +244,8 @@ class Board:
 					for i in range(0, 6):
 						print(self.matrix[i])
 					print("--- %s seconds ---" % (time.time() - start_time))
-					openQueue.clear()
-					closed.clear()
+					global solutionFound
+					solutionFound = True
 				if car.x[i] == 2 and car.y[i] == 5:
 					self.cars.remove(car)
 					return True
@@ -369,13 +369,22 @@ while(True):
 	start_time = time.time()
 	line = theFile.readline()
 	line=line[6:]
-	print(line)
+
 	if not line:
 		break
-	game = Board(line)
-	game.MoveCar()
+
+	try:
+		game = Board(line)
+		game.MoveCar()
+	except Exception:
+		print("End")
 	while (len(openQueue) > 0):
-		print(len(openQueue))
+		if(solutionFound==True):
+			openQueue.clear()
+			closed.clear()
+			solutionFound = False
+			break
+
 		foundClosed = True
 		while (foundClosed):
 			foundClosed = removeClosed()
@@ -389,6 +398,8 @@ while(True):
 
 	print("No solution found")
 	print("--- %s seconds ---" % (time.time() - start_time))
+	openQueue.clear()
+	closed.clear()
 
 
 
