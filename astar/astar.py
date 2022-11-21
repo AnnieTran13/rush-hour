@@ -2,11 +2,13 @@ from queue import PriorityQueue
 import copy
 
 specialCars = []
+from queue import PriorityQueue
 from operator import itemgetter
 import time
 
 open = []
 closed = {}
+
 
 class Car:
     def __init__(self, letter):
@@ -31,8 +33,9 @@ class Car:
 
 
 class BoardGen:
-    def __init__(self, cars, special, path):
+    def __init__(self, cost, cars, special, path):
         self.heuristic = 100
+        self.cost = cost
         self.path = path
         self.cars = cars
         self.carA = 0
@@ -44,7 +47,7 @@ class BoardGen:
             for j in range(0, 6):
                 self.board[i][j] = '.'
 
-        finalMatrix = True
+        finalMatrix = True;
         while (finalMatrix):
             finalMatrix = self.createMatrix()
 
@@ -52,7 +55,17 @@ class BoardGen:
             for j in range(0, 6):
                 self.string += str(self.board[i][j])
 
-        self.heuristic = self.numberCarsBlocking()
+        if selectedHeuristic == 1:
+            self.heuristic = self.numberCarsBlocking()
+        elif selectedHeuristic == 2:
+            self.heuristic = self.numberPositionsBlocking()
+        elif selectedHeuristic == 3:
+            self.heuristic = self.numberCarsBlockingMultiplied();
+        elif selectedHeuristic == 4:
+            self.heuristic = self.numberCarsBlockingDistance();
+        else:
+            self.heuristic = self.numberCarsBlockingDistance();
+
 
     # h1: The number of blocked cars
     def numberCarsBlocking(self):
@@ -65,6 +78,44 @@ class BoardGen:
                 individualBlockingCars.append(self.board[row][column])
             column += 1
         return len(individualBlockingCars)
+
+        # h2: The number of blocked positions
+    def numberPositionsBlocking(self):
+        individualBlockingPositions = []
+        row = 2
+        column = self.carA + 1
+        while (column < 6):
+            if self.board[row][column] != ".":
+                individualBlockingPositions.append(self.board[row][column])
+            column += 1
+        return len(individualBlockingPositions)
+
+        # h3: The value of h1 multiplied by a constant λ of your choice (5), where λ > 1.
+    def numberCarsBlockingMultiplied(self):
+        lambdavalue = 5
+        individualBlockingCars = []
+        row = 2
+        column = self.carA + 1
+        while (column < 6):
+            # print (self.board[row][column])
+            if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
+                individualBlockingCars.append(self.board[row][column])
+            column += 1
+        return lambdavalue * len(individualBlockingCars)
+
+    # h4: The distance between the red car and the goal + the number of blocked cars
+    def numberCarsBlockingDistance(self):
+        individualBlockingCars = []
+        row = 2
+        column = self.carA + 1
+        distance = 6 - column
+        while (column < 6):
+            # print (self.board[row][column])
+            if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
+                individualBlockingCars.append(self.board[row][column])
+            column += 1
+        return len(individualBlockingCars) + distance
+
 
     def createMatrix(self):
         for car in self.cars:
@@ -96,9 +147,9 @@ class BoardGen:
             while row + fuelCost < 6 and self.board[row + fuelCost][columm] == ".":
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -114,9 +165,9 @@ class BoardGen:
             while row - fuelCost > -1 and self.board[row - fuelCost][columm] == ".":
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -135,9 +186,9 @@ class BoardGen:
             while columm + fuelCost < 6 and self.board[row][columm + fuelCost] == ".":
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -153,9 +204,9 @@ class BoardGen:
             while columm - fuelCost > -1 and self.board[row][columm - fuelCost] == ".":
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -173,7 +224,7 @@ class Board:
     # creating 2D array
     def __init__(self, inp):
         self.cost = 0
-        self.heuristic = 10
+        self.heuristic = 0
         self.special = []
         # Separate board from fuel amounts
         self.inp = inp[:36]
@@ -256,9 +307,9 @@ class Board:
             while row + fuelCost < 6 and self.matrix[row + fuelCost][columm] == ".":
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " down " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -274,9 +325,9 @@ class Board:
             while row - fuelCost > -1 and self.matrix[row - fuelCost][columm] == ".":
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " up " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -295,9 +346,9 @@ class Board:
             while columm + fuelCost < 6 and self.matrix[row][columm + fuelCost] == ".":
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " right " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -313,9 +364,9 @@ class Board:
             while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
-                    generatedBoard = BoardGen(cars_copy, self.special,
+                    generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " left " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
 
@@ -349,10 +400,9 @@ def removeClosed():
 
     return False
 
-
+selectedHeuristic = input("Enter heuristic number: ")
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
-# c = '..BBBM.CC.DM.AALDMJ.KLEEJ.K.GGJHHHII B2 C99 D99 A99 K99 L98 J0 G98'
 c = 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0'
 # c = 'BB.............AAM.....M............'
 game = Board(c)
