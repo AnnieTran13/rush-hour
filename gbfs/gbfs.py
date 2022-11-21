@@ -77,14 +77,14 @@ class BoardGen:
 
         # h2: The number of blocked positions
     def numberPositionsBlocking(self):
-        individualBlockingPositions = []
+        individualBlockingPositions = 0
         row = 2
         column = self.carA + 1
         while (column < 6):
             if self.board[row][column] != ".":
-                individualBlockingPositions.append(self.board[row][column])
+                individualBlockingPositions+=1
             column += 1
-        return len(individualBlockingPositions)
+        return individualBlockingPositions
 
         # h3: The value of h1 multiplied by a constant λ of your choice (5), where λ > 1.
     def numberCarsBlockingMultiplied(self):
