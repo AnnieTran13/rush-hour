@@ -106,6 +106,7 @@ class BoardGen:
     # h4: The distance between the red car and the goal + the number of blocked cars
     def numberCarsBlockingDistance(self):
         individualBlockingCars = []
+        lambdavalue = 2
         row = 2
         column = self.carA + 1
         distance = 6 - column
@@ -114,7 +115,7 @@ class BoardGen:
             if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
                 individualBlockingCars.append(self.board[row][column])
             column += 1
-        return len(individualBlockingCars) + distance
+        return lambdavalue*len(individualBlockingCars) + distance
 
 
     def createMatrix(self):
@@ -147,6 +148,7 @@ class BoardGen:
             while row + fuelCost < 6 and self.board[row + fuelCost][columm] == ".":
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -165,6 +167,7 @@ class BoardGen:
             while row - fuelCost > -1 and self.board[row - fuelCost][columm] == ".":
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -186,6 +189,7 @@ class BoardGen:
             while columm + fuelCost < 6 and self.board[row][columm + fuelCost] == ".":
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -204,6 +208,7 @@ class BoardGen:
             while columm - fuelCost > -1 and self.board[row][columm - fuelCost] == ".":
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -307,6 +312,7 @@ class Board:
             while row + fuelCost < 6 and self.matrix[row + fuelCost][columm] == ".":
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " down " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -325,6 +331,7 @@ class Board:
             while row - fuelCost > -1 and self.matrix[row - fuelCost][columm] == ".":
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " up " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -346,6 +353,7 @@ class Board:
             while columm + fuelCost < 6 and self.matrix[row][columm + fuelCost] == ".":
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " right " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -364,6 +372,7 @@ class Board:
             while columm - fuelCost > -1 and self.matrix[row][columm - fuelCost] == ".":
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= int(fuelCost)):
+                    cars_copy[i].changeFuel(int(cars_copy[i].fuel) - fuelCost)
                     generatedBoard = BoardGen(self.cost + fuelCost, cars_copy, self.special,
                                               cars_copy[i].letter + " left " + str(fuelCost) + "-->")
                     open.append({"priority": self.cost + fuelCost + generatedBoard.heuristic,
@@ -403,7 +412,7 @@ def removeClosed():
 selectedHeuristic = input("Enter heuristic number: ")
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
-c = 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0'
+c = 'BBB..MCCDDPMAAKLPMJ.KLEEJ.GG..JHHHII B4 J0 A4'
 # c = 'BB.............AAM.....M............'
 game = Board(c)
 game.MoveCar()
