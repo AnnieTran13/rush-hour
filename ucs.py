@@ -4,10 +4,14 @@ specialCars = []
 from queue import PriorityQueue
 from operator import itemgetter
 import time
+from tkinter import *
+from tkinter import filedialog
 
 
-open = []
+openQueue = []
 closed = {}
+
+
 
 class Car:
 	def __init__(self,letter):
@@ -84,7 +88,7 @@ class BoardGen:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -102,7 +106,7 @@ class BoardGen:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -124,7 +128,7 @@ class BoardGen:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -143,7 +147,7 @@ class BoardGen:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, self.path + cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -258,7 +262,7 @@ class Board:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " down " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -276,7 +280,7 @@ class Board:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " up " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -298,7 +302,7 @@ class Board:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " right " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 				cars_copy = copy.deepcopy(self.cars)
@@ -317,7 +321,7 @@ class Board:
 				if (int(cars_copy[i].fuel) >= 1):
 					cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
 					generatedBoard = BoardGen(self.cost + 1, cars_copy, self.special, cars_copy[i].letter + " left " + str(fuelCost)+ "-->")
-					open.append({"priority": self.cost + 1,
+					openQueue.append({"priority": self.cost + 1,
 								 "board": generatedBoard,
 								 "string": str(generatedBoard)})
 
@@ -340,11 +344,11 @@ class Board:
 
 
 def removeClosed():
-	for index in range(0, len(open)):
+	for index in range(0, len(openQueue)):
 			try:
-				key = open[index]['string']
+				key = openQueue[index]['string']
 				found = closed[key]
-				del open[index]
+				del openQueue[index]
 				return True
 			except:
 				found = 0 #do nothing
@@ -352,23 +356,34 @@ def removeClosed():
 	return False
 
 
+root = Tk()
+root.title("Hello There")
+
+
+root.filename=filedialog.askopenfilename(title="Select A File",filetypes=(("text files","txt"),))
+theFile = open(root.filename,"r")
+print(theFile.readlines())
+
+
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
 c= 'IIB...C.BHHHC.AAD.....D.EEGGGF.....F'
 #c = 'BB.............AAM.....M............'
+
+
 game=Board(c)
 game.MoveCar()
-while (len(open)>0):
+while (len(openQueue)>0):
 	foundClosed = True
 	while(foundClosed):
 		foundClosed=removeClosed()
-	open = sorted(open, key=itemgetter('priority'))
-	#print(str(len(open)) + " " + str(len(closed)))
-	if len(open)>0:
-		open[0]['board'].MoveCar()
-		key = open[0]['string']
+	openQueue = sorted(openQueue, key=itemgetter('priority'))
+	#print(str(len(openQueue)) + " " + str(len(closed)))
+	if len(openQueue)>0:
+		openQueue[0]['board'].MoveCar()
+		key = openQueue[0]['string']
 		closed[key]=key
-		del open[0]
+		del openQueue[0]
 
 print("No solution found")
 print("--- %s seconds ---" % (time.time() - start_time))
