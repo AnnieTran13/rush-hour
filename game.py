@@ -180,9 +180,6 @@ class Board:
 			for j in range(0,6):
 				self.matrix[i][j]=self.inp[n]
 				n+=1
-		#print matrix
-		for i in range(0,6):
-			print(self.matrix[i])
 		for i in range(0,6):
 			for j in range(0, 6):
 				self.string += str(self.matrix[i][j])
@@ -193,7 +190,8 @@ class Board:
 			if(inp[i] not in letters and inp[i]!="."):
 				letters.append(inp[i])
 
-
+		#for i in range(0, 6):
+			#print(self.matrix[i])
 		#create all cars
 		self.cars = []
 		for i in letters:
@@ -216,7 +214,31 @@ class Board:
 		for car in self.cars:
 			car.orientation()
 
+		finalMatrix = True;
+		while (finalMatrix):
+			finalMatrix = self.createMatrix()
+			# print matrix
+		self.matrix = [["."] * 6 for i in range(0, 6)]
+		for index in range(0, len(self.cars)):
+			for i in range(0, len(self.cars[index].x)):
+				self.matrix[self.cars[index].x[i]][self.cars[index].y[i]]=self.cars[index].letter
+		for i in range(0, 6):
+			print(self.matrix[i])
 
+	def createMatrix(self):
+		for car in self.cars:
+			for i in range(0, len(car.x)):
+				self.matrix[car.x[i]][car.y[i]]=car.letter
+				if car.x[i]==2 and car.y[i]==5 and self.matrix[car.x[i]][car.y[i]]== 'A':
+					print("Found a solution. Its correct from the start")
+					for i in range(0, 6):
+						print(self.matrix[i])
+					print("--- %s seconds ---" % (time.time() - start_time))
+					exit()
+				if car.x[i] == 2 and car.y[i] == 5:
+					self.cars.remove(car)
+					return True
+		return False
 
 
 	def verticalMove(self):
@@ -323,8 +345,8 @@ def removeClosed():
 
 
 start_time = time.time()
-#c= '...GF...BGF.AABCF....CDD...C....EE..'
-c= 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII J0 B4'
+c= '...GF...BGF.AABCF....CDD...C....EE..'
+#c= 'BBB..MCCDD.MAAKL.MJ.KLEEJ.GG..JHHHII B4 J0'
 #c = 'BB.............AAM.....M............'
 game=Board(c)
 game.MoveCar()
