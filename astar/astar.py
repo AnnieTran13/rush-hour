@@ -103,18 +103,10 @@ class BoardGen:
             column += 1
         return lambdavalue * len(individualBlockingCars)
 
-    # h4: The distance between the red car and the goal + the number of blocked cars
+    # h4: Previous one was not admissible upon closer inspection due to the fact all moves cost 1 ignoring distance. For now average
+    #if we cannot come up with something better.
     def numberCarsBlockingDistance(self):
-        individualBlockingCars = []
-        row = 2
-        column = self.carA + 1
-        distance = 6 - column
-        while (column < 6):
-            # print (self.board[row][column])
-            if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
-                individualBlockingCars.append(self.board[row][column])
-            column += 1
-        return len(individualBlockingCars) + distance
+        return (self.numberCarsBlocking() + self.numberPositionsBlocking())/2
 
 
     def createMatrix(self):
