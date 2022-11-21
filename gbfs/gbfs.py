@@ -5,7 +5,7 @@ specialCars = []
 from operator import itemgetter
 import time
 
-open = []
+openQueue = []
 closed = {}
 
 
@@ -151,7 +151,7 @@ class BoardGen:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -170,7 +170,7 @@ class BoardGen:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -192,7 +192,7 @@ class BoardGen:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -211,7 +211,7 @@ class BoardGen:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -315,7 +315,7 @@ class Board:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " down " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -334,7 +334,7 @@ class Board:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " up " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -356,7 +356,7 @@ class Board:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " right " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -375,7 +375,7 @@ class Board:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " left " + str(fuelCost) + "-->")
-                    open.append({"priority": generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.heuristic,
                                  "board": generatedBoard,
                                  "string": str(generatedBoard)})
 
@@ -398,11 +398,11 @@ class Board:
 
 
 def removeClosed():
-    for index in range(0, len(open)):
+    for index in range(0, len(openQueue)):
         try:
-            key = open[index]['string']
+            key = openQueue[index]['string']
             found = closed[key]
-            del open[index]
+            del openQueue[index]
             return True
         except:
             found = 0  # do nothing
@@ -417,17 +417,17 @@ c = 'BBB..MCCDDPMAAKLPMJ.KLEEJ.GG..JHHHII B4 J0 A4'
 # c = 'BB.............AAM.....M............'
 game = Board(c)
 game.MoveCar()
-while (len(open) > 0):
+while (len(openQueue) > 0):
     foundClosed = True
     while (foundClosed):
         foundClosed = removeClosed()
-    open = sorted(open, key=itemgetter('priority'))
-    # print(str(len(open)) + " " + str(len(closed)))
-    if len(open) > 0:
-        open[0]['board'].MoveCar()
-        key = open[0]['string']
+    openQueue = sorted(openQueue, key=itemgetter('priority'))
+    # print(str(len(openQueue)) + " " + str(len(closed)))
+    if len(openQueue) > 0:
+        openQueue[0]['board'].MoveCar()
+        key = openQueue[0]['string']
         closed[key] = key
-        del open[0]
+        del openQueue[0]
 
 print("No solution found")
 print("--- %s seconds ---" % (time.time() - start_time))
