@@ -412,7 +412,7 @@ def removeClosed():
 selectedHeuristic = input("Enter heuristic number: ")
 start_time = time.time()
 # c= '...GF...BGF.AABCF....CDD...C....EE..'
-c = 'BBB..MCCDDPMAAKLPMJ.KLEEJ.GG..JHHHII B4 J0 A4'
+c = 'IIB...C.BHHHC.AAD.....D.EEGGGF.....F'
 # c = 'BB.............AAM.....M............'
 game = Board(c)
 game.MoveCar()
