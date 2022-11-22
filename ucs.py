@@ -241,8 +241,6 @@ class Board:
 				self.matrix[car.x[i]][car.y[i]]=car.letter
 				if car.x[i]==2 and car.y[i]==5 and self.matrix[car.x[i]][car.y[i]]== 'A':
 					print("Found a solution. Its correct from the start")
-					for i in range(0, 6):
-						print(self.matrix[i])
 					print("--- %s seconds ---" % (time.time() - start_time))
 					global solutionFound
 					solutionFound = True
@@ -366,23 +364,21 @@ root.title("Hello There")
 root.filename=filedialog.askopenfilename(title="Select A File",filetypes=(("text files","txt"),))
 theFile = open(root.filename,"r")
 while(True):
+	solutionFound = False
 	start_time = time.time()
 	line = theFile.readline()
 	line=line[6:]
 
 	if not line:
 		break
+	print(line)
+	game = Board(line)
+	game.MoveCar()
 
-	try:
-		game = Board(line)
-		game.MoveCar()
-	except Exception:
-		print("End")
 	while (len(openQueue) > 0):
 		if(solutionFound==True):
 			openQueue.clear()
 			closed.clear()
-			solutionFound = False
 			break
 
 		foundClosed = True
@@ -395,11 +391,12 @@ while(True):
 			key = openQueue[0]['string']
 			closed[key] = key
 			del openQueue[0]
+	if (solutionFound == False):
+		print("No solution found")
+		print("--- %s seconds ---" % (time.time() - start_time))
+		openQueue.clear()
+		closed.clear()
 
-	print("No solution found")
-	print("--- %s seconds ---" % (time.time() - start_time))
-	openQueue.clear()
-	closed.clear()
 
 
 

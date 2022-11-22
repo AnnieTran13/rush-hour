@@ -1,5 +1,7 @@
 from queue import PriorityQueue
 import copy
+from tkinter import *
+from tkinter import filedialog
 
 specialCars = []
 from operator import itemgetter
@@ -7,6 +9,7 @@ import time
 
 openQueue = []
 closed = {}
+solutionFound = False
 
 
 class Car:
@@ -52,14 +55,14 @@ class BoardGen:
         for i in range(0, 6):
             for j in range(0, 6):
                 self.string += str(self.board[i][j])
-        if selectedHeuristic==1:
+        if selectedHeuristic == 1:
             self.heuristic = self.numberCarsBlocking()
-        elif selectedHeuristic==2:
-            self.heuristic= self.numberPositionsBlocking()
-        elif selectedHeuristic==3:
-            self.heuristic=self.numberCarsBlockingMultiplied();
-        elif selectedHeuristic==4:
-            self.heuristic=self.numberCarsBlockingDistance();
+        elif selectedHeuristic == 2:
+            self.heuristic = self.numberPositionsBlocking()
+        elif selectedHeuristic == 3:
+            self.heuristic = self.numberCarsBlockingMultiplied();
+        elif selectedHeuristic == 4:
+            self.heuristic = self.numberCarsBlockingDistance();
         else:
             self.heuristic = self.numberCarsBlockingDistance();
 
@@ -76,17 +79,19 @@ class BoardGen:
         return len(individualBlockingCars)
 
         # h2: The number of blocked positions
+
     def numberPositionsBlocking(self):
         individualBlockingPositions = 0
         row = 2
         column = self.carA + 1
         while (column < 6):
             if self.board[row][column] != ".":
-                individualBlockingPositions+=1
+                individualBlockingPositions += 1
             column += 1
         return individualBlockingPositions
 
         # h3: The value of h1 multiplied by a constant λ of your choice (2), where λ > 1.
+
     def numberCarsBlockingMultiplied(self):
         lambdavalue = 2
         individualBlockingCars = []
@@ -100,23 +105,22 @@ class BoardGen:
         return lambdavalue * len(individualBlockingCars)
 
     # h4: The distance between the red car and the goal + the number of blocked cars
-    #def numberCarsBlockingDistance(self):
+    # def numberCarsBlockingDistance(self):
     #    individualBlockingCars = []
-     #   row = 2
-      #  column = self.carA + 1
-       # distance = 6 - column
-        #while (column < 6):
-         #   # print (self.board[row][column])
-          #  if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
-           #     individualBlockingCars.append(self.board[row][column])
-            #column += 1
-        #return len(individualBlockingCars) + distance
+    #   row = 2
+    #  column = self.carA + 1
+    # distance = 6 - column
+    # while (column < 6):
+    #   # print (self.board[row][column])
+    #  if self.board[row][column] not in individualBlockingCars and self.board[row][column] != ".":
+    #     individualBlockingCars.append(self.board[row][column])
+    # column += 1
+    # return len(individualBlockingCars) + distance
 
-        # h4: Previous one was not admissible upon closer inspection due to the fact all moves cost 1 ignoring distance. For now average
-        # if we cannot come up with something better.
+    # h4: Previous one was not admissible upon closer inspection due to the fact all moves cost 1 ignoring distance. For now average
+    # if we cannot come up with something better.
     def numberCarsBlockingDistance(self):
         return (self.numberCarsBlocking() + self.numberPositionsBlocking()) / 2
-
 
     def createMatrix(self):
         for car in self.cars:
@@ -128,7 +132,8 @@ class BoardGen:
                     print("Found a solution")
                     print(self.path)
                     print("--- %s seconds ---" % (time.time() - start_time))
-                    exit()
+                    global solutionFound
+                    solutionFound = True
                 if (car.x[i] == 2 and car.y[i] == 5):
                     self.cars.remove(car)
                     return True
@@ -152,8 +157,8 @@ class BoardGen:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -171,8 +176,8 @@ class BoardGen:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -193,8 +198,8 @@ class BoardGen:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -212,8 +217,8 @@ class BoardGen:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -292,10 +297,9 @@ class Board:
                 self.matrix[car.x[i]][car.y[i]] = car.letter
                 if car.x[i] == 2 and car.y[i] == 5 and self.matrix[car.x[i]][car.y[i]] == 'A':
                     print("Found a solution. Its correct from the start")
-                    for i in range(0, 6):
-                        print(self.matrix[i])
                     print("--- %s seconds ---" % (time.time() - start_time))
-                    exit()
+                    global solutionFound
+                    solutionFound = True
                 if car.x[i] == 2 and car.y[i] == 5:
                     self.cars.remove(car)
                     return True
@@ -316,8 +320,8 @@ class Board:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " down " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -335,8 +339,8 @@ class Board:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " up " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -357,8 +361,8 @@ class Board:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " right " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
 
@@ -376,8 +380,8 @@ class Board:
                     generatedBoard = BoardGen(cars_copy, self.special,
                                               cars_copy[i].letter + " left " + str(fuelCost) + "-->")
                     openQueue.append({"priority": generatedBoard.heuristic,
-                                 "board": generatedBoard,
-                                 "string": str(generatedBoard)})
+                                      "board": generatedBoard,
+                                      "string": str(generatedBoard)})
 
                 cars_copy = copy.deepcopy(self.cars)
                 fuelCost += 1
@@ -409,25 +413,42 @@ def removeClosed():
 
     return False
 
-selectedHeuristic = input("Enter heuristic number: ")
-start_time = time.time()
-# c= '...GF...BGF.AABCF....CDD...C....EE..'
-# c = '..BBBM.CC.DM.AALDMJ.KLEEJ.K.GGJHHHII B2 C99 D99 A99 K99 L98 J0 G98'
-c = 'BBB..MCCDDPMAAKLPMJ.KLEEJ.GG..JHHHII B4 J0 A4'
-# c = 'BB.............AAM.....M............'
-game = Board(c)
-game.MoveCar()
-while (len(openQueue) > 0):
-    foundClosed = True
-    while (foundClosed):
-        foundClosed = removeClosed()
-    openQueue = sorted(openQueue, key=itemgetter('priority'))
-    # print(str(len(openQueue)) + " " + str(len(closed)))
-    if len(openQueue) > 0:
-        openQueue[0]['board'].MoveCar()
-        key = openQueue[0]['string']
-        closed[key] = key
-        del openQueue[0]
+selectedHeuristic = input("Enter Heuristic Number")
+root = Tk()
+root.title("Hello There")
 
-print("No solution found")
-print("--- %s seconds ---" % (time.time() - start_time))
+root.filename = filedialog.askopenfilename(title="Select A File", filetypes=(("text files", "txt"),))
+theFile = open(root.filename, "r")
+while (True):
+    solutionFound = False
+    start_time = time.time()
+    line = theFile.readline()
+    line = line[6:]
+
+    if not line:
+        break
+    print(line)
+    game = Board(line)
+    game.MoveCar()
+
+    while (len(openQueue) > 0):
+        if (solutionFound == True):
+            openQueue.clear()
+            closed.clear()
+            break
+
+        foundClosed = True
+        while (foundClosed):
+            foundClosed = removeClosed()
+        openQueue = sorted(openQueue, key=itemgetter('priority'))
+        # print(str(len(openQueue)) + " " + str(len(closed)))
+        if len(openQueue) > 0:
+            openQueue[0]['board'].MoveCar()
+            key = openQueue[0]['string']
+            closed[key] = key
+            del openQueue[0]
+    if (solutionFound == False):
+        print("No solution found")
+        print("--- %s seconds ---" % (time.time() - start_time))
+        openQueue.clear()
+        closed.clear()
