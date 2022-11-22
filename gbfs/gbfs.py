@@ -421,9 +421,13 @@ root.filename = filedialog.askopenfilename(title="Select A File", filetypes=(("t
 theFile = open(root.filename, "r")
 while (True):
     solutionFound = False
-    start_time = time.time()
     line = theFile.readline()
-    line = line[6:]
+    line = line.split()
+    finalLine = ""
+    for k in range(3, len(line)):
+        finalLine = finalLine + line[k] + " "
+    line = finalLine
+    start_time = time.time()
 
     if not line:
         break
