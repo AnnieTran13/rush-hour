@@ -35,13 +35,14 @@ class Car:
 
 
 class BoardGen:
-    def __init__(self, cars, special, path):
+    def __init__(self, cars, pathLength, path, boardHistory):
         self.heuristic = 100
         self.path = path
         self.cars = cars
         self.carA = 0
-        self.special = special
         self.string = ""
+        self.pathLength = pathLength
+        self.boardHistory= boardHistory
         self.board = [["."] * 6 for i in range(0, 6)]
 
         for i in range(0, 6):
@@ -65,6 +66,26 @@ class BoardGen:
             self.heuristic = self.numberCarsBlockingDistance();
         else:
             self.heuristic = self.numberCarsBlockingDistance();
+
+        self.boardHistory[self.pathLength - 1] += self.string
+
+        global solutionFound
+        global canWrite
+        if solutionFound and canWrite:
+            canWrite = False
+            openQueue.clear()
+            global solution
+            global searchPathLength
+            solution = solution + "\n Runtime: " + str(time.time() - start_time) + " seconds"
+            solution = solution + "\n Search Path Length: " + str(searchPathLength)
+            solution = solution + "\n Solution Path Length: " + str(self.pathLength)
+            solution = solution + "\n Solution Path: " + str(self.path) + "\n\n"
+            for b in self.boardHistory:
+                solution = solution + b + "\n"
+
+            solution = solution = solution + "\n"
+            for line in self.board:
+                solution = solution + str(line) + "\n"
 
     # h1: The number of blocked cars
     def numberCarsBlocking(self):
@@ -134,7 +155,7 @@ class BoardGen:
                     print("--- %s seconds ---" % (time.time() - start_time))
                     global solutionFound
                     solutionFound = True
-                if (car.x[i] == 2 and car.y[i] == 5):
+                if (car.x[i] == 2 and car.y[i] == 5 and car.vertical==False):
                     self.cars.remove(car)
                     return True
         return False
@@ -154,8 +175,11 @@ class BoardGen:
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->")
+                    history = copy.deepcopy(self.boardHistory)
+                    history.append(cars_copy[i].letter + " down " + str(fuelCost) + "\t")
+                    generatedBoard = BoardGen(cars_copy, self.pathLength + 1,
+                                              self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->",
+                                              history)
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -173,8 +197,11 @@ class BoardGen:
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->")
+                    history = copy.deepcopy(self.boardHistory)
+                    history.append(cars_copy[i].letter + " up " + str(fuelCost) + "\t")
+                    generatedBoard = BoardGen(cars_copy, self.pathLength + 1,
+                                              self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->",
+                                              history)
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -195,8 +222,11 @@ class BoardGen:
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->")
+                    history = copy.deepcopy(self.boardHistory)
+                    history.append(cars_copy[i].letter + " right " + str(fuelCost) + "\t")
+                    generatedBoard = BoardGen(cars_copy, self.pathLength + 1,
+                                              self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->",
+                                              history)
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -214,8 +244,9 @@ class BoardGen:
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->")
+                    history = copy.deepcopy(self.boardHistory)
+                    history.append(cars_copy[i].letter + " left " + str(fuelCost) + "\t")
+                    generatedBoard = BoardGen(cars_copy, self.pathLength + 1, self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->",history)
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -241,6 +272,7 @@ class Board:
         self.fuel = inp[37:].split(" ")
         self.matrix = [["0"] * 6 for i in range(0, 6)]
         self.string = ""
+        global solution
         n = 0
         for i in range(0, 6):
             for j in range(0, 6):
@@ -256,6 +288,8 @@ class Board:
             if (inp[i] not in letters and inp[i] != "."):
                 letters.append(inp[i])
 
+        for i in range(0, 6):
+            solution = solution + str(self.matrix[i]) + "\n"
         # for i in range(0, 6):
         # print(self.matrix[i])
         # create all cars
@@ -277,6 +311,9 @@ class Board:
                     if (f[0] == car.letter):
                         car.changeFuel(f[1])
                         self.special.append(car.letter)
+        solution = solution + "\n Car fuel available: "
+        for car in self.cars:
+            solution = solution + car.letter + ":" + str(car.fuel) + " "
         for car in self.cars:
             car.orientation()
 
@@ -300,7 +337,7 @@ class Board:
                     print("--- %s seconds ---" % (time.time() - start_time))
                     global solutionFound
                     solutionFound = True
-                if car.x[i] == 2 and car.y[i] == 5:
+                if car.x[i] == 2 and car.y[i] == 5 and car.vertical==False:
                     self.cars.remove(car)
                     return True
         return False
@@ -317,8 +354,8 @@ class Board:
                 cars_copy[i].x = [pos + fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              cars_copy[i].letter + " down " + str(fuelCost) + "-->")
+                    generatedBoard = BoardGen(cars_copy, 1,
+                                              cars_copy[i].letter + " down " + str(fuelCost) + "-->", [cars_copy[i].letter + " down " + str(fuelCost)+"\t"])
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -336,8 +373,8 @@ class Board:
                 cars_copy[i].x = [pos - fuelCost for pos in cars_copy[i].x]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              cars_copy[i].letter + " up " + str(fuelCost) + "-->")
+                    generatedBoard = BoardGen(cars_copy, 1,
+                                              cars_copy[i].letter + " up " + str(fuelCost) + "-->", [cars_copy[i].letter + " up " + str(fuelCost)+"\t"])
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -358,8 +395,8 @@ class Board:
                 cars_copy[i].y = [pos + fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              cars_copy[i].letter + " right " + str(fuelCost) + "-->")
+                    generatedBoard = BoardGen(cars_copy, 1,
+                                              cars_copy[i].letter + " right " + str(fuelCost) + "-->", [cars_copy[i].letter + " right " + str(fuelCost)+"\t"])
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -377,8 +414,8 @@ class Board:
                 cars_copy[i].y = [pos - fuelCost for pos in cars_copy[i].y]
                 if (int(cars_copy[i].fuel) >= 1):
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
-                    generatedBoard = BoardGen(cars_copy, self.special,
-                                              cars_copy[i].letter + " left " + str(fuelCost) + "-->")
+                    generatedBoard = BoardGen(cars_copy, 1,
+                                              cars_copy[i].letter + " left " + str(fuelCost) + "-->", [cars_copy[i].letter + " left " + str(fuelCost)+"\t"])
                     openQueue.append({"priority": generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
@@ -413,6 +450,10 @@ def removeClosed():
 
     return False
 
+solution=""
+searchPathLength=0
+count=0
+canWrite=True
 selectedHeuristic = input("Enter Heuristic Number")
 root = Tk()
 root.title("Hello There")
@@ -422,16 +463,33 @@ theFile = open(root.filename, "r")
 while (True):
     solutionFound = False
     line = theFile.readline()
-    line = line.split()
-    finalLine = ""
-    for k in range(3, len(line)):
-        finalLine = finalLine + line[k] + " "
-    line = finalLine
+    if (len(line) < 36):
+        print("Thanks for playing")
+        print(solution)
+        count += 1
+        file = open("gbfs" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file.write(solution)
+        file.close()
+        solution = ""
+        canWrite = False
+        exit()
+
+    if solution != "":
+        count += 1
+        file = open("gbfs" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file.write(solution)
+        file.close()
+        solution = ""
+        canWrite = False
+    solution = ""
+    solution = solution + "Initial board configuration: " + line + "\n\n"
     start_time = time.time()
 
     if not line:
         break
     print(line)
+    canWrite=True
+    searchPathLength = 0
     game = Board(line)
     game.MoveCar()
 
@@ -447,6 +505,7 @@ while (True):
         openQueue = sorted(openQueue, key=itemgetter('priority'))
         # print(str(len(openQueue)) + " " + str(len(closed)))
         if len(openQueue) > 0:
+            searchPathLength+=1
             openQueue[0]['board'].MoveCar()
             key = openQueue[0]['string']
             closed[key] = key

@@ -1,0 +1,55 @@
+Initial board configuration: BB.G.HE..G.HEAAG.I..FCCIDDF..I..F... 
+
+
+['B', 'B', '.', 'G', '.', 'H']
+['E', '.', '.', 'G', '.', 'H']
+['E', 'A', 'A', 'G', '.', 'I']
+['.', '.', 'F', 'C', 'C', 'I']
+['D', 'D', 'F', '.', '.', 'I']
+['.', '.', 'F', '.', '.', '.']
+
+ Car fuel available: B:100 G:100 H:100 E:100 A:100 I:100 F:100 C:100 D:100 
+ Runtime: 2.2040021419525146 seconds
+ Search Path Length: 748
+ Solution Path Length: 32
+ Solution Path: I down 1-->H down 1-->B right 1-->E up 1-->A left 1-->F up 2-->D right 3-->F down 2-->A right 1-->E down 4-->B left 1-->A left 1-->F up 3-->C left 3-->G down 1-->F down 1-->B right 4-->G up 1-->F up 1-->C right 3-->F down 3-->A right 1-->E up 4-->A left 1-->F up 3-->C left 3-->D left 3-->G down 3-->F down 3-->B left 1-->H up 1-->A right 4-->
+
+I down 1	BB.G.HE..G.HEAAG....FCCIDDF..I..F..I
+H down 1	BB.G..E..G.HEAAG.H..FCCIDDF..I..F..I
+B right 1	.BBG..E..G.HEAAG.H..FCCIDDF..I..F..I
+E up 1	EBBG..E..G.H.AAG.H..FCCIDDF..I..F..I
+A left 1	EBBG..E..G.HAA.G.H..FCCIDDF..I..F..I
+F up 2	EBBG..E.FG.HAAFG.H..FCCIDD...I.....I
+D right 3	EBBG..E.FG.HAAFG.H..FCCI...DDI.....I
+F down 2	EBBG..E..G.HAA.G.H..FCCI..FDDI..F..I
+A right 1	EBBG..E..G.H.AAG.H..FCCI..FDDI..F..I
+E down 4	.BBG.....G.H.AAG.H..FCCIE.FDDIE.F..I
+B left 1	BB.G.....G.H.AAG.H..FCCIE.FDDIE.F..I
+A left 1	BB.G.....G.HAA.G.H..FCCIE.FDDIE.F..I
+F up 3	BBFG....FG.HAAFG.H...CCIE..DDIE....I
+C left 3	BBFG....FG.HAAFG.HCC...IE..DDIE....I
+G down 1	BBF.....FG.HAAFG.HCC.G.IE..DDIE....I
+F down 1	BB......FG.HAAFG.HCCFG.IE..DDIE....I
+B right 4	....BB..FG.HAAFG.HCCFG.IE..DDIE....I
+G up 1	...GBB..FG.HAAFG.HCCF..IE..DDIE....I
+F up 1	..FGBB..FG.HAAFG.HCC...IE..DDIE....I
+C right 3	..FGBB..FG.HAAFG.H...CCIE..DDIE....I
+F down 3	...GBB...G.HAA.G.H..FCCIE.FDDIE.F..I
+A right 1	...GBB...G.H.AAG.H..FCCIE.FDDIE.F..I
+E up 4	E..GBBE..G.H.AAG.H..FCCI..FDDI..F..I
+A left 1	E..GBBE..G.HAA.G.H..FCCI..FDDI..F..I
+F up 3	E.FGBBE.FG.HAAFG.H...CCI...DDI.....I
+C left 3	E.FGBBE.FG.HAAFG.HCC...I...DDI.....I
+D left 3	E.FGBBE.FG.HAAFG.HCC...IDD...I.....I
+G down 3	E.F.BBE.F..HAAF..HCC.G.IDD.G.I...G.I
+F down 3	E...BBE....HAA...HCCFG.IDDFG.I..FG.I
+B left 1	E..BB.E....HAA...HCCFG.IDDFG.I..FG.I
+H up 1	E..BBHE....HAA....CCFG.IDDFG.I..FG.I
+A right 4	E..BBHE....H....AACCFG.IDDFG.I..FG.I
+
+['E', '.', '.', 'B', 'B', 'H']
+['E', '.', '.', '.', '.', 'H']
+['.', '.', '.', '.', 'A', 'A']
+['C', 'C', 'F', 'G', '.', 'I']
+['D', 'D', 'F', 'G', '.', 'I']
+['.', '.', 'F', 'G', '.', 'I']

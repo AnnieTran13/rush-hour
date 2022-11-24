@@ -409,7 +409,7 @@ while(True):
 		print("Thanks for playing")
 		print(solution)
 		count += 1
-		file = open("output" + str(count) + ".txt", "w")
+		file = open("ucs" + str(count) + ".txt", "w")
 		file.write(solution)
 		file.close()
 		solution = ""
@@ -418,7 +418,7 @@ while(True):
 
 	if solution!="":
 		count+=1
-		file=open("output"+str(count)+".txt", "w")
+		file=open("ucs"+str(count)+".txt", "w")
 		file.write(solution)
 		file.close()
 		solution=""
@@ -430,8 +430,9 @@ while(True):
 
 	if not line:
 		break
-	print(line)
+	#print(line)
 	canWrite = True
+	searchPathLength = 0
 	game = Board(line)
 	game.MoveCar()
 
