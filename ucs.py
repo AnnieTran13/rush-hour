@@ -1,5 +1,6 @@
 from queue import PriorityQueue
 import copy
+import math
 specialCars = []
 from queue import PriorityQueue
 from operator import itemgetter
@@ -435,7 +436,7 @@ while(True):
 	searchPathLength = 0
 	game = Board(line)
 	game.MoveCar()
-
+	fileSearch = open("ucs-search" + str(count+1) +".txt", "w")
 	while (len(openQueue) > 0):
 		if(solutionFound==True):
 			openQueue.clear()
@@ -449,6 +450,7 @@ while(True):
 		# print(str(len(openQueue)) + " " + str(len(closed)))
 		if len(openQueue) > 0:
 			searchPathLength+=1
+			fileSearch.write(str(math.floor(openQueue[0]['priority'])) + " " + str(openQueue[0]['board'].cost) + " " + str(0) + " " + openQueue[0]['string'] + "\n")
 			openQueue[0]['board'].MoveCar()
 			key = openQueue[0]['string']
 			closed[key] = key

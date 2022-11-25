@@ -1,3 +1,4 @@
+import math
 from queue import PriorityQueue
 import copy
 from tkinter import *
@@ -458,7 +459,7 @@ while (True):
         print("Thanks for playing")
         print(solution)
         count += 1
-        file = open("astar" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file = open("astar-sol" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
         file.write(solution)
         file.close()
         solution = ""
@@ -467,7 +468,7 @@ while (True):
 
     if solution != "":
         count += 1
-        file = open("astar" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file = open("astar-sol" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
         file.write(solution)
         file.close()
         solution = ""
@@ -483,7 +484,7 @@ while (True):
     searchPathLength=0
     game = Board(line)
     game.MoveCar()
-
+    fileSearch = open("astar-search" + str(count+1) + " h" + str(selectedHeuristic) + ".txt", "w")
     while (len(openQueue) > 0):
         if (solutionFound == True):
             openQueue.clear()
@@ -497,6 +498,7 @@ while (True):
         # print(str(len(openQueue)) + " " + str(len(closed)))
         if len(openQueue) > 0:
             searchPathLength+=1
+            fileSearch.write(str(math.floor(openQueue[0]['priority']))+ " "+ str(openQueue[0]['board'].cost)+" " + str(math.floor(openQueue[0]['board'].heuristic))+ " "+ openQueue[0]['string']+"\n")
             openQueue[0]['board'].MoveCar()
             key = openQueue[0]['string']
             closed[key] = key
@@ -506,3 +508,4 @@ while (True):
         print("--- %s seconds ---" % (time.time() - start_time))
         openQueue.clear()
         closed.clear()
+        fileSearch.close()

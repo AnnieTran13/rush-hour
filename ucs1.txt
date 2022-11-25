@@ -9,7 +9,7 @@ Initial board configuration: BBIJ....IJCC..IAAMGDDK.MGH.KL.GHFFL.
 ['G', 'H', 'F', 'F', 'L', '.']
 
  Car fuel available: B:100 I:100 J:100 C:100 A:100 M:100 G:100 D:100 K:100 H:100 L:100 F:100 
- Runtime: 0.006002187728881836 seconds
+ Runtime: 0.0029931068420410156 seconds
  Search Path Length: 1
  Solution Path Length: 2
  Solution Path: M down 1-->A right 1-->

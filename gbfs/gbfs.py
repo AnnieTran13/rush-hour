@@ -2,7 +2,7 @@ from queue import PriorityQueue
 import copy
 from tkinter import *
 from tkinter import filedialog
-
+import math
 specialCars = []
 from operator import itemgetter
 import time
@@ -467,7 +467,7 @@ while (True):
         print("Thanks for playing")
         print(solution)
         count += 1
-        file = open("gbfs" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file = open("gbfs-sol " + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
         file.write(solution)
         file.close()
         solution = ""
@@ -476,7 +476,7 @@ while (True):
 
     if solution != "":
         count += 1
-        file = open("gbfs" + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
+        file = open("gbfs-sol " + str(count) + " h" + str(selectedHeuristic) + ".txt", "w")
         file.write(solution)
         file.close()
         solution = ""
@@ -492,7 +492,7 @@ while (True):
     searchPathLength = 0
     game = Board(line)
     game.MoveCar()
-
+    fileSearch = open("gbfs-search" + str(count+1) + " h" + str(selectedHeuristic) + ".txt", "w")
     while (len(openQueue) > 0):
         if (solutionFound == True):
             openQueue.clear()
@@ -506,6 +506,7 @@ while (True):
         # print(str(len(openQueue)) + " " + str(len(closed)))
         if len(openQueue) > 0:
             searchPathLength+=1
+            fileSearch.write(str(math.floor(openQueue[0]['priority'])) + " " + str(0) + " " + str(math.floor(openQueue[0]['board'].heuristic)) + " " + openQueue[0]['string'] + "\n")
             openQueue[0]['board'].MoveCar()
             key = openQueue[0]['string']
             closed[key] = key
