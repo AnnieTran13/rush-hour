@@ -60,16 +60,16 @@ class BoardGen:
             for j in range(0, 6):
                 self.string += str(self.board[i][j])
 
-        if selectedHeuristic == 1:
+        if selectedHeuristic == "1":
             self.heuristic = self.numberCarsBlocking()
-        elif selectedHeuristic == 2:
+        elif selectedHeuristic == "2":
             self.heuristic = self.numberPositionsBlocking()
-        elif selectedHeuristic == 3:
-            self.heuristic = self.numberCarsBlockingMultiplied();
-        elif selectedHeuristic == 4:
-            self.heuristic = self.numberCarsBlockingDistance();
+        elif selectedHeuristic == "3":
+            self.heuristic = self.numberCarsBlockingMultiplied()
+        elif selectedHeuristic == "4":
+            self.heuristic = self.numberCarsBlockingBlocked()
         else:
-            self.heuristic = self.numberCarsBlockingDistance();
+            print("no heuristic selected")
 
         global solutionFound
         global canWrite
@@ -101,8 +101,7 @@ class BoardGen:
             column += 1
         return len(individualBlockingCars)
 
-        # h2: The number of blocked positions
-
+    # h2: The number of blocked positions
     def numberPositionsBlocking(self):
         individualBlockingPositions = 0
         row = 2
@@ -113,8 +112,7 @@ class BoardGen:
             column += 1
         return individualBlockingPositions
 
-        # h3: The value of h1 multiplied by a constant λ of your choice (5), where λ > 1.
-
+    # h3: The value of h1 multiplied by a constant λ of your choice (5), where λ > 1.
     def numberCarsBlockingMultiplied(self):
         lambdavalue = 5
         individualBlockingCars = []
@@ -127,10 +125,26 @@ class BoardGen:
             column += 1
         return lambdavalue * len(individualBlockingCars)
 
-    # h4: Previous one was not admissible upon closer inspection due to the fact all moves cost 1 ignoring distance. For now average
-    # if we cannot come up with something better.
-    def numberCarsBlockingDistance(self):
-        return (self.numberCarsBlocking() + self.numberPositionsBlocking()) / 2
+    # h4: The number of blocked cars + 1 if that car is blocked by at least 1 car
+    def numberCarsBlockingBlocked(self):
+        blockingCars = []
+        blockingBlockedCars = 0
+        row = 2
+        column = self.carA + 1
+        while (column < 6):
+            # print (self.board[row][column])
+            if self.board[row][column] not in blockingCars and self.board[row][column] != ".":
+                blockingCars.append(self.board[row][column])
+                # Check if car is vertical
+                if (column != 5 and self.board[row][column+1] not in blockingCars):
+                    # Check if the car blocking has a car blocking it on top or under
+                    if (self.board[row + 1][column] != self.board[row][column]
+                            or self.board[row - 1][column] != self.board[row][column]
+                            or self.board[row + 2][column] != self.board[row][column]
+                            or self.board[row - 2][column] != self.board[row][column]):
+                        blockingBlockedCars = blockingBlockedCars + 1
+            column += 1
+        return len(blockingCars) + blockingBlockedCars
 
     def createMatrix(self):
         for car in self.cars:

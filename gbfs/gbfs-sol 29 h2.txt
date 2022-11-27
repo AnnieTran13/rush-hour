@@ -1,0 +1,70 @@
+Initial board configuration: GBB.L.GHI.LMGHIAAMCCCK.M..JKDDEEJ...
+
+
+['G', 'B', 'B', '.', 'L', '.']
+['G', 'H', 'I', '.', 'L', 'M']
+['G', 'H', 'I', 'A', 'A', 'M']
+['C', 'C', 'C', 'K', '.', 'M']
+['.', '.', 'J', 'K', 'D', 'D']
+['E', 'E', 'J', '.', '.', '.']
+
+ Car fuel available: G:100 B:100 L:100 H:100 I:100 M:100 A:100 C:100 K:100 J:100 D:100 E:100 
+ Runtime: 4.391997337341309 seconds
+ Search Path Length: 2820
+ Solution Path Length: 47
+ Solution Path: K down 1-->M up 1-->C right 3-->H down 2-->J up 1-->E right 1-->G down 3-->B left 1-->I up 1-->A left 3-->L down 1-->I down 1-->B right 3-->I up 1-->A right 2-->G up 3-->H up 3-->A left 1-->E left 1-->J down 1-->C left 3-->K up 3-->C right 3-->J up 1-->E right 3-->J down 1-->C left 3-->K down 2-->M down 1-->B right 1-->K up 3-->D left 1-->M down 2-->A right 1-->C right 2-->G down 3-->H down 3-->A left 2-->I down 1-->K down 1-->B left 2-->L up 1-->B left 1-->K up 1-->B left 1-->I up 1-->A right 4-->
+
+K down 1	GBB.L.GHI.LMGHIAAMCCC..M..JKDDEEJK..
+M up 1	GBB.LMGHI.LMGHIAAMCCC.....JKDDEEJK..
+C right 3	GBB.LMGHI.LMGHIAAM...CCC..JKDDEEJK..
+H down 2	GBB.LMG.I.LMG.IAAM.H.CCC.HJKDDEEJK..
+J up 1	GBB.LMG.I.LMG.IAAM.HJCCC.HJKDDEE.K..
+E right 1	GBB.LMG.I.LMG.IAAM.HJCCC.HJKDD.EEK..
+G down 3	.BB.LM..I.LM..IAAMGHJCCCGHJKDDGEEK..
+B left 1	BB..LM..I.LM..IAAMGHJCCCGHJKDDGEEK..
+I up 1	BBI.LM..I.LM...AAMGHJCCCGHJKDDGEEK..
+A left 3	BBI.LM..I.LMAA...MGHJCCCGHJKDDGEEK..
+L down 1	BBI..M..I.LMAA..LMGHJCCCGHJKDDGEEK..
+I down 1	BB...M..I.LMAAI.LMGHJCCCGHJKDDGEEK..
+B right 3	...BBM..I.LMAAI.LMGHJCCCGHJKDDGEEK..
+I up 1	..IBBM..I.LMAA..LMGHJCCCGHJKDDGEEK..
+A right 2	..IBBM..I.LM..AALMGHJCCCGHJKDDGEEK..
+G up 3	G.IBBMG.I.LMG.AALM.HJCCC.HJKDD.EEK..
+H up 3	GHIBBMGHI.LMG.AALM..JCCC..JKDD.EEK..
+A left 1	GHIBBMGHI.LMGAA.LM..JCCC..JKDD.EEK..
+E left 1	GHIBBMGHI.LMGAA.LM..JCCC..JKDDEE.K..
+J down 1	GHIBBMGHI.LMGAA.LM...CCC..JKDDEEJK..
+C left 3	GHIBBMGHI.LMGAA.LMCCC.....JKDDEEJK..
+K up 3	GHIBBMGHIKLMGAAKLMCCC.....J.DDEEJ...
+C right 3	GHIBBMGHIKLMGAAKLM...CCC..J.DDEEJ...
+J up 1	GHIBBMGHIKLMGAAKLM..JCCC..J.DDEE....
+E right 3	GHIBBMGHIKLMGAAKLM..JCCC..J.DD...EE.
+J down 1	GHIBBMGHIKLMGAAKLM...CCC..J.DD..JEE.
+C left 3	GHIBBMGHIKLMGAAKLMCCC.....J.DD..JEE.
+K down 2	GHIBBMGHI.LMGAA.LMCCCK....JKDD..JEE.
+M down 1	GHIBB.GHI.LMGAA.LMCCCK.M..JKDD..JEE.
+B right 1	GHI.BBGHI.LMGAA.LMCCCK.M..JKDD..JEE.
+K up 3	GHIKBBGHIKLMGAA.LMCCC..M..J.DD..JEE.
+D left 1	GHIKBBGHIKLMGAA.LMCCC..M..JDD...JEE.
+M down 2	GHIKBBGHIKL.GAA.L.CCC..M..JDDM..JEEM
+A right 1	GHIKBBGHIKL.G.AAL.CCC..M..JDDM..JEEM
+C right 2	GHIKBBGHIKL.G.AAL...CCCM..JDDM..JEEM
+G down 3	.HIKBB.HIKL...AAL.G.CCCMG.JDDMG.JEEM
+H down 3	..IKBB..IKL...AAL.GHCCCMGHJDDMG.JEEM
+A left 2	..IKBB..IKL.AA..L.GHCCCMGHJDDMG.JEEM
+I down 1	...KBB..IKL.AAI.L.GHCCCMGHJDDMG.JEEM
+K down 1	....BB..IKL.AAIKL.GHCCCMGHJDDMG.JEEM
+B left 2	..BB....IKL.AAIKL.GHCCCMGHJDDMG.JEEM
+L up 1	..BBL...IKL.AAIK..GHCCCMGHJDDMG.JEEM
+B left 1	.BB.L...IKL.AAIK..GHCCCMGHJDDMG.JEEM
+K up 1	.BBKL...IKL.AAI...GHCCCMGHJDDMG.JEEM
+B left 1	BB.KL...IKL.AAI...GHCCCMGHJDDMG.JEEM
+I up 1	BBIKL...IKL.AA....GHCCCMGHJDDMG.JEEM
+A right 4	BBIKL...IKL.....AAGHCCCMGHJDDMG.JEEM
+
+['B', 'B', 'I', 'K', 'L', '.']
+['.', '.', 'I', 'K', 'L', '.']
+['.', '.', '.', '.', 'A', 'A']
+['G', 'H', 'C', 'C', 'C', 'M']
+['G', 'H', 'J', 'D', 'D', 'M']
+['G', '.', 'J', 'E', 'E', 'M']
