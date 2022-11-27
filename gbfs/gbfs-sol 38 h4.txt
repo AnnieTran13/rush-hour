@@ -1,0 +1,26 @@
+Initial board configuration: .CCLMN..KLMNAAK...IJDD..IJFF..GGHHH.
+
+
+['.', 'C', 'C', 'L', 'M', 'N']
+['.', '.', 'K', 'L', 'M', 'N']
+['A', 'A', 'K', '.', '.', '.']
+['I', 'J', 'D', 'D', '.', '.']
+['I', 'J', 'F', 'F', '.', '.']
+['G', 'G', 'H', 'H', 'H', '.']
+
+ Car fuel available: C:100 L:100 M:100 N:100 K:100 A:100 I:100 J:100 D:100 F:100 G:100 H:100 
+ Runtime: 0.017998695373535156 seconds
+ Search Path Length: 10
+ Solution Path Length: 3
+ Solution Path: C left 1-->K up 1-->A right 4-->
+
+C left 1	CC.LMN..KLMNAAK...IJDD..IJFF..GGHHH.
+K up 1	CCKLMN..KLMNAA....IJDD..IJFF..GGHHH.
+A right 4	CCKLMN..KLMN....AAIJDD..IJFF..GGHHH.
+
+['C', 'C', 'K', 'L', 'M', 'N']
+['.', '.', 'K', 'L', 'M', 'N']
+['.', '.', '.', '.', 'A', 'A']
+['I', 'J', 'D', 'D', '.', '.']
+['I', 'J', 'F', 'F', '.', '.']
+['G', 'G', 'H', 'H', 'H', '.']
