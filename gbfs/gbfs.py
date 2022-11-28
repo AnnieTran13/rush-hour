@@ -124,10 +124,10 @@ class BoardGen:
             column += 1
         return lambdavalue * len(individualBlockingCars)
 
-    # h4: The number of blocked cars + 1 if that car is blocked by at least 1 car
     def numberCarsBlockingBlocked(self):
         blockingCars = []
         blockingBlockedCars = 0
+        solutions= []
         row = 2
         column = self.carA + 1
         # print(column)
@@ -151,8 +151,13 @@ class BoardGen:
                             or self.board[row + 2][column] != self.board[row][column]
                             or self.board[row - 2][column] != self.board[row][column]):
                         blockingBlockedCars = blockingBlockedCars + 1
+            solutions.append(blockingBlockedCars)
             column += 1
-        return len(blockingCars) + blockingBlockedCars
+        if(len(solutions)>0):
+            return len(blockingCars) + min(solutions)
+        if(len(solutions)==0):
+            return 1
+
 
     def createMatrix(self):
         for i in range(0, 6):
