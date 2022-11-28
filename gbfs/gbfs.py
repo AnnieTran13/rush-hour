@@ -130,12 +130,21 @@ class BoardGen:
         blockingBlockedCars = 0
         row = 2
         column = self.carA + 1
+        # print(column)
         while (column < 6):
-            # print (self.board[row][column])
+            # print (str(row) + " " + str(column) + " " +self.board[row][column]+"\n")
             if self.board[row][column] not in blockingCars and self.board[row][column] != ".":
                 blockingCars.append(self.board[row][column])
+
                 # Check if car is vertical
-                if (column != 5 and self.board[row][column+1] not in blockingCars):
+                verticalCar = False
+                letter = ""
+                for car in self.cars:
+                    if car.letter == self.board[row][column]:
+                        verticalCar = car.vertical
+                        letter = car.letter
+
+                if (verticalCar == True):
                     # Check if the car blocking has a car blocking it on top or under
                     if (self.board[row + 1][column] != self.board[row][column]
                             or self.board[row - 1][column] != self.board[row][column]
