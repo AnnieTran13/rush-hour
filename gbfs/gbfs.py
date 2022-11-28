@@ -146,6 +146,9 @@ class BoardGen:
         return len(blockingCars) + blockingBlockedCars
 
     def createMatrix(self):
+        for i in range(0, 6):
+            for j in range(0, 6):
+                self.board[i][j] = '.'
         for car in self.cars:
             if (car.letter == 'A'):
                 self.carA = car.y[-1]
@@ -157,7 +160,8 @@ class BoardGen:
                     print("--- %s seconds ---" % (time.time() - start_time))
                     global solutionFound
                     solutionFound = True
-                if (car.x[i] == 2 and car.y[i] == 5 and car.vertical == False):
+                orientation = car.vertical
+                if (car.x[i] == 2 and car.y[i] == 5 and orientation == False):
                     self.cars.remove(car)
                     return True
         return False

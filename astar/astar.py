@@ -8,6 +8,7 @@ specialCars = []
 from queue import PriorityQueue
 from operator import itemgetter
 import time
+import numpy as np
 
 openQueue = []
 closed = {}
@@ -47,7 +48,6 @@ class BoardGen:
         self.pathLength = pathLength
         self.boardHistory = boardHistory
         self.board = [["."] * 6 for i in range(0, 6)]
-
         for i in range(0, 6):
             for j in range(0, 6):
                 self.board[i][j] = '.'
@@ -56,9 +56,7 @@ class BoardGen:
         while (finalMatrix):
             finalMatrix = self.createMatrix()
 
-        for i in range(0, 6):
-            for j in range(0, 6):
-                self.string += str(self.board[i][j])
+
 
         if selectedHeuristic == "1":
             self.heuristic = self.numberCarsBlocking()
@@ -70,6 +68,10 @@ class BoardGen:
             self.heuristic = self.numberCarsBlockingBlocked()
         else:
             print("no heuristic selected")
+        for i in range(0, 6):
+            for j in range(0, 6):
+                self.string += str(self.board[i][j])
+        self.boardHistory[self.pathLength - 1] += self.string
 
         global solutionFound
         global canWrite
@@ -131,12 +133,21 @@ class BoardGen:
         blockingBlockedCars = 0
         row = 2
         column = self.carA + 1
+        # print(column)
         while (column < 6):
-            # print (self.board[row][column])
+            # print (str(row) + " " + str(column) + " " +self.board[row][column]+"\n")
             if self.board[row][column] not in blockingCars and self.board[row][column] != ".":
                 blockingCars.append(self.board[row][column])
+
                 # Check if car is vertical
-                if (column != 5 and self.board[row][column+1] not in blockingCars):
+                verticalCar = False
+                letter = ""
+                for car in self.cars:
+                    if car.letter == self.board[row][column]:
+                        verticalCar = car.vertical
+                        letter = car.letter
+
+                if (verticalCar == True):
                     # Check if the car blocking has a car blocking it on top or under
                     if (self.board[row + 1][column] != self.board[row][column]
                             or self.board[row - 1][column] != self.board[row][column]
@@ -147,6 +158,9 @@ class BoardGen:
         return len(blockingCars) + blockingBlockedCars
 
     def createMatrix(self):
+        for i in range(0, 6):
+            for j in range(0, 6):
+                self.board[i][j] = '.'
         for car in self.cars:
             if (car.letter == 'A'):
                 self.carA = car.y[-1]
@@ -184,7 +198,7 @@ class BoardGen:
                     generatedBoard = BoardGen(self.cost + 1, cars_copy, self.pathLength + 1,
                                               self.path + cars_copy[i].letter + " down " + str(fuelCost) + "-->",
                                               history)
-                    openQueue.append({"priority": self.cost + 1 + generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.cost + generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -206,7 +220,7 @@ class BoardGen:
                     generatedBoard = BoardGen(self.cost + 1, cars_copy, self.pathLength + 1,
                                               self.path + cars_copy[i].letter + " up " + str(fuelCost) + "-->",
                                               history)
-                    openQueue.append({"priority": self.cost + 1 + generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.cost + generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -231,7 +245,8 @@ class BoardGen:
                     generatedBoard = BoardGen(self.cost + 1, cars_copy, self.pathLength + 1,
                                               self.path + cars_copy[i].letter + " right " + str(fuelCost) + "-->",
                                               history)
-                    openQueue.append({"priority": self.cost + 1 + generatedBoard.heuristic,
+
+                    openQueue.append({"priority": generatedBoard.cost + generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -253,7 +268,7 @@ class BoardGen:
                     generatedBoard = BoardGen(self.cost + 1, cars_copy, self.pathLength + 1,
                                               self.path + cars_copy[i].letter + " left " + str(fuelCost) + "-->",
                                               history)
-                    openQueue.append({"priority": self.cost + 1 + generatedBoard.heuristic,
+                    openQueue.append({"priority": generatedBoard.cost + generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
                 cars_copy = copy.deepcopy(self.cars)
@@ -298,6 +313,7 @@ class Board:
         # for i in range(0, 6):
         # print(self.matrix[i])
         # create all cars
+        letters.sort()
         self.cars = []
         for i in letters:
             self.cars.append(Car(i))
@@ -422,6 +438,7 @@ class Board:
                     cars_copy[i].changeFuel(int(cars_copy[i].fuel) - 1)
                     generatedBoard = BoardGen(self.cost + 1, cars_copy, 1,
                                               cars_copy[i].letter + " left " + str(fuelCost) + "-->", [cars_copy[i].letter + " left " + str(fuelCost)+"\t"] )
+
                     openQueue.append({"priority": self.cost + 1 + generatedBoard.heuristic,
                                       "board": generatedBoard,
                                       "string": str(generatedBoard)})
