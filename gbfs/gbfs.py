@@ -124,6 +124,7 @@ class BoardGen:
             column += 1
         return lambdavalue * len(individualBlockingCars)
 
+    # h4: The number of blocked cars+ the minimum amount of cars blocking the previously mentioned blocked car if it's vertical. If the car in front is horizontal return 1 (since it should be easily removed 90% of the time) and return 0 if path is clear
     def numberCarsBlockingBlocked(self):
         blockingCars = []
         blockingBlockedCars = 0
