@@ -9,26 +9,44 @@ Initial board configuration: .CCL....KLDDJ.KAAMJEE..MJFFGGNHHHIIN
 ['H', 'H', 'H', 'I', 'I', 'N']
 
  Car fuel available: C:100 L:100 K:100 D:100 J:100 A:100 M:100 E:100 F:100 G:100 N:100 H:100 I:100 
- Runtime: 0.29450011253356934 seconds
- Search Path Length: 274
- Solution Path Length: 11
- Solution Path: J up 2-->E left 1-->F left 1-->K down 2-->A left 2-->L down 2-->D left 1-->M up 2-->D left 2-->L up 2-->A right 3-->
+ Runtime: 0.591500997543335 seconds
+ Search Path Length: 507
+ Solution Path Length: 29
+ Solution Path: C left 1-->K up 1-->A left 2-->L down 2-->D left 1-->M up 2-->N up 1-->I right 1-->H right 1-->J down 1-->A left 1-->N up 1-->G right 1-->L down 1-->A right 1-->J up 1-->H left 1-->L down 1-->E right 2-->A right 2-->K down 2-->D left 3-->K up 2-->A left 2-->E left 2-->L up 4-->G left 1-->N down 1-->A right 3-->
 
-J up 2	JCCL..J.KLDDJ.KAAM.EE..M.FFGGNHHHIIN
-E left 1	JCCL..J.KLDDJ.KAAMEE...M.FFGGNHHHIIN
-F left 1	JCCL..J.KLDDJ.KAAMEE...MFF.GGNHHHIIN
-K down 2	JCCL..J..LDDJ..AAMEEK..MFFKGGNHHHIIN
-A left 2	JCCL..J..LDDJAA..MEEK..MFFKGGNHHHIIN
-L down 2	JCC...J...DDJAAL.MEEKL.MFFKGGNHHHIIN
-D left 1	JCC...J..DD.JAAL.MEEKL.MFFKGGNHHHIIN
-M up 2	JCC..MJ..DDMJAAL..EEKL..FFKGGNHHHIIN
-D left 2	JCC..MJDD..MJAAL..EEKL..FFKGGNHHHIIN
-L up 2	JCCL.MJDDL.MJAA...EEK...FFKGGNHHHIIN
-A right 3	JCCL.MJDDL.MJ...AAEEK...FFKGGNHHHIIN
+C left 1	CC.L....KLDDJ.KAAMJEE..MJFFGGNHHHIIN
+K up 1	CCKL....KLDDJ..AAMJEE..MJFFGGNHHHIIN
+A left 2	CCKL....KLDDJAA..MJEE..MJFFGGNHHHIIN
+L down 2	CCK.....K.DDJAAL.MJEEL.MJFFGGNHHHIIN
+D left 1	CCK.....KDD.JAAL.MJEEL.MJFFGGNHHHIIN
+M up 2	CCK..M..KDDMJAAL..JEEL..JFFGGNHHHIIN
+N up 1	CCK..M..KDDMJAAL..JEEL.NJFFGGNHHHII.
+I right 1	CCK..M..KDDMJAAL..JEEL.NJFFGGNHHH.II
+H right 1	CCK..M..KDDMJAAL..JEEL.NJFFGGN.HHHII
+J down 1	CCK..M..KDDM.AAL..JEEL.NJFFGGNJHHHII
+A left 1	CCK..M..KDDMAA.L..JEEL.NJFFGGNJHHHII
+N up 1	CCK..M..KDDMAA.L.NJEEL.NJFFGG.JHHHII
+G right 1	CCK..M..KDDMAA.L.NJEEL.NJFF.GGJHHHII
+L down 1	CCK..M..KDDMAA...NJEEL.NJFFLGGJHHHII
+A right 1	CCK..M..KDDM.AA..NJEEL.NJFFLGGJHHHII
+J up 1	CCK..M..KDDMJAA..NJEEL.NJFFLGG.HHHII
+H left 1	CCK..M..KDDMJAA..NJEEL.NJFFLGGHHH.II
+L down 1	CCK..M..KDDMJAA..NJEE..NJFFLGGHHHLII
+E right 2	CCK..M..KDDMJAA..NJ..EENJFFLGGHHHLII
+A right 2	CCK..M..KDDMJ..AANJ..EENJFFLGGHHHLII
+K down 2	CC...M...DDMJ.KAANJ.KEENJFFLGGHHHLII
+D left 3	CC...MDD...MJ.KAANJ.KEENJFFLGGHHHLII
+K up 2	CCK..MDDK..MJ..AANJ..EENJFFLGGHHHLII
+A left 2	CCK..MDDK..MJAA..NJ..EENJFFLGGHHHLII
+E left 2	CCK..MDDK..MJAA..NJEE..NJFFLGGHHHLII
+L up 4	CCKL.MDDKL.MJAA..NJEE..NJFF.GGHHH.II
+G left 1	CCKL.MDDKL.MJAA..NJEE..NJFFGG.HHH.II
+N down 1	CCKL.MDDKL.MJAA...JEE..NJFFGGNHHH.II
+A right 3	CCKL.MDDKL.MJ.....JEE..NJFFGGNHHH.II
 
-['J', 'C', 'C', 'L', '.', 'M']
-['J', 'D', 'D', 'L', '.', 'M']
-['J', '.', '.', '.', 'A', 'A']
-['E', 'E', 'K', '.', '.', '.']
-['F', 'F', 'K', 'G', 'G', 'N']
-['H', 'H', 'H', 'I', 'I', 'N']
+['C', 'C', 'K', 'L', '.', 'M']
+['D', 'D', 'K', 'L', '.', 'M']
+['J', '.', '.', '.', '.', '.']
+['J', 'E', 'E', '.', '.', 'N']
+['J', 'F', 'F', 'G', 'G', 'N']
+['H', 'H', 'H', '.', 'I', 'I']

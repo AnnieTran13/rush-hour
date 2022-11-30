@@ -8,27 +8,27 @@ Initial board configuration: BBI..MGHI.LMGHAALNGCCK.N..JKDD..JEE.
 ['.', '.', 'J', 'K', 'D', 'D']
 ['.', '.', 'J', 'E', 'E', '.']
 
- Car fuel available: B:100 I:100 M:100 G:100 H:100 L:100 A:100 N:100 C:100 K:100 J:100 D:100 E:100 
- Runtime: 0.8770015239715576 seconds
- Search Path Length: 539
+ Car fuel available: A:100 B:100 C:100 D:100 E:100 G:100 H:100 I:100 J:100 K:100 L:100 M:100 N:100 
+ Runtime: 0.7474989891052246 seconds
+ Search Path Length: 448
  Solution Path Length: 11
  Solution Path: L up 1-->E right 1-->K down 1-->C right 1-->H down 3-->A left 1-->C left 1-->K up 4-->D left 1-->N down 1-->A right 3-->
 
-L up 1	
-E right 1	
-K down 1	
-C right 1	
-H down 3	
-A left 1	
-C left 1	
-K up 4	
-D left 1	
-N down 1	
-A right 3	
+L up 1	BBI.LMGHI.LMGHAA.NGCCK.N..JKDD..JEE.
+E right 1	BBI.LMGHI.LMGHAA.NGCCK.N..JKDD..J.EE
+K down 1	BBI.LMGHI.LMGHAA.NGCC..N..JKDD..JKEE
+C right 1	BBI.LMGHI.LMGHAA.NG.CC.N..JKDD..JKEE
+H down 3	BBI.LMG.I.LMG.AA.NG.CC.N.HJKDD.HJKEE
+A left 1	BBI.LMG.I.LMGAA..NG.CC.N.HJKDD.HJKEE
+C left 1	BBI.LMG.I.LMGAA..NGCC..N.HJKDD.HJKEE
+K up 4	BBIKLMG.IKLMGAA..NGCC..N.HJ.DD.HJ.EE
+D left 1	BBIKLMG.IKLMGAA..NGCC..N.HJDD..HJ.EE
+N down 1	BBIKLMG.IKLMGAA...GCC..N.HJDDN.HJ.EE
+A right 3	BBIKLMG.IKLMG.....GCC..N.HJDDN.HJ.EE
 
 ['B', 'B', 'I', 'K', 'L', 'M']
 ['G', '.', 'I', 'K', 'L', 'M']
-['G', '.', '.', '.', 'A', 'A']
+['G', '.', '.', '.', '.', '.']
 ['G', 'C', 'C', '.', '.', 'N']
 ['.', 'H', 'J', 'D', 'D', 'N']
 ['.', 'H', 'J', '.', 'E', 'E']

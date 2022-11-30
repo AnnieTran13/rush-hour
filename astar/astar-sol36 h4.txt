@@ -8,33 +8,33 @@ Initial board configuration: HI..CCHIDDL.HAAKL....KEE..JFFMGGJ..M
 ['.', '.', 'J', 'F', 'F', 'M']
 ['G', 'G', 'J', '.', '.', 'M']
 
- Car fuel available: H:100 I:100 C:100 D:100 L:100 A:100 K:100 E:100 J:100 F:100 M:100 G:100 
- Runtime: 0.23149943351745605 seconds
- Search Path Length: 215
+ Car fuel available: A:100 C:100 D:100 E:100 F:100 G:100 H:100 I:100 J:100 K:100 L:100 M:100 
+ Runtime: 0.2604992389678955 seconds
+ Search Path Length: 237
  Solution Path Length: 17
- Solution Path: C left 2-->L up 1-->J up 1-->G right 1-->H down 3-->A left 1-->J up 1-->F left 2-->K down 2-->E left 1-->M up 4-->E right 1-->K up 2-->F right 3-->K down 1-->J down 1-->A right 4-->
+ Solution Path: J up 1-->G right 1-->H down 3-->A left 1-->J up 1-->F left 2-->K down 2-->C left 2-->E left 1-->M up 4-->E right 1-->K up 2-->F right 3-->J down 1-->K down 1-->L up 1-->A right 4-->
 
-C left 2	
-L up 1	
-J up 1	
-G right 1	
-H down 3	
-A left 1	
-J up 1	
-F left 2	
-K down 2	
-E left 1	
-M up 4	
-E right 1	
-K up 2	
-F right 3	
-K down 1	
-J down 1	
-A right 4	
+J up 1	HI..CCHIDDL.HAAKL...JKEE..JFFMGG...M
+G right 1	HI..CCHIDDL.HAAKL...JKEE..JFFM.GG..M
+H down 3	.I..CC.IDDL..AAKL.H.JKEEH.JFFMHGG..M
+A left 1	.I..CC.IDDL.AA.KL.H.JKEEH.JFFMHGG..M
+J up 1	.I..CC.IDDL.AAJKL.H.JKEEH..FFMHGG..M
+F left 2	.I..CC.IDDL.AAJKL.H.JKEEHFF..MHGG..M
+K down 2	.I..CC.IDDL.AAJ.L.H.J.EEHFFK.MHGGK.M
+C left 2	.ICC...IDDL.AAJ.L.H.J.EEHFFK.MHGGK.M
+E left 1	.ICC...IDDL.AAJ.L.H.JEE.HFFK.MHGGK.M
+M up 4	.ICC.M.IDDLMAAJ.L.H.JEE.HFFK..HGGK..
+E right 1	.ICC.M.IDDLMAAJ.L.H.J.EEHFFK..HGGK..
+K up 2	.ICC.M.IDDLMAAJKL.H.JKEEHFF...HGG...
+F right 3	.ICC.M.IDDLMAAJKL.H.JKEEH...FFHGG...
+J down 1	.ICC.M.IDDLMAA.KL.H.JKEEH.J.FFHGG...
+K down 1	.ICC.M.IDDLMAA..L.H.JKEEH.JKFFHGG...
+L up 1	.ICCLM.IDDLMAA....H.JKEEH.JKFFHGG...
+A right 4	.ICCLM.IDDLM......H.JKEEH.JKFFHGG...
 
 ['.', 'I', 'C', 'C', 'L', 'M']
 ['.', 'I', 'D', 'D', 'L', 'M']
-['.', '.', '.', '.', 'A', 'A']
+['.', '.', '.', '.', '.', '.']
 ['H', '.', 'J', 'K', 'E', 'E']
 ['H', '.', 'J', 'K', 'F', 'F']
 ['H', 'G', 'G', '.', '.', '.']

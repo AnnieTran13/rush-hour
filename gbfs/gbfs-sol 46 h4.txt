@@ -9,17 +9,17 @@ Initial board configuration: .CCM....LMDDK.LAANKEE..NKFFGG..IIJJ.
 ['.', 'I', 'I', 'J', 'J', '.']
 
  Car fuel available: C:100 M:100 L:100 D:100 K:100 A:100 N:100 E:100 F:100 G:100 I:100 J:100 
- Runtime: 0.0029990673065185547 seconds
+ Runtime: 0.0029997825622558594 seconds
  Search Path Length: 1
  Solution Path Length: 2
  Solution Path: N down 1-->A right 1-->
 
 N down 1	.CCM....LMDDK.LAA.KEE..NKFFGGN.IIJJ.
-A right 1	.CCM....LMDDK.L.AAKEE..NKFFGGN.IIJJ.
+A right 1	.CCM....LMDDK.L...KEE..NKFFGGN.IIJJ.
 
 ['.', 'C', 'C', 'M', '.', '.']
 ['.', '.', 'L', 'M', 'D', 'D']
-['K', '.', 'L', '.', 'A', 'A']
+['K', '.', 'L', '.', '.', '.']
 ['K', 'E', 'E', '.', '.', 'N']
 ['K', 'F', 'F', 'G', 'G', 'N']
 ['.', 'I', 'I', 'J', 'J', '.']

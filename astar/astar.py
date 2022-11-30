@@ -131,7 +131,7 @@ class BoardGen:
     def numberCarsBlockingBlocked(self):
         blockingCars = []
         blockingBlockedCars = 0
-        solutions= []
+        solutions = []
         row = 2
         column = self.carA + 1
         # print(column)

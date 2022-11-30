@@ -9,30 +9,33 @@ Initial board configuration: GBB.L.GHI.LMGHIAAMCCCK.M..JKDDEEJFF.
 ['E', 'E', 'J', 'F', 'F', '.']
 
  Car fuel available: G:100 B:100 L:100 H:100 I:100 M:100 A:100 C:100 K:100 J:100 D:100 E:100 F:100 
- Runtime: 1.9344971179962158 seconds
- Search Path Length: 1579
- Solution Path Length: 54
- Solution Path: M up 1-->F right 1-->K down 1-->C right 3-->H down 2-->J up 1-->E right 1-->G down 3-->B left 1-->I up 1-->A left 3-->L down 1-->I down 1-->B right 3-->I up 1-->A right 2-->G up 3-->H up 3-->A left 1-->E left 1-->J down 1-->C left 3-->M down 1-->B right 1-->K up 4-->D left 1-->F left 1-->M down 2-->A right 1-->C right 2-->H down 3-->A left 1-->K down 1-->B left 1-->M up 3-->C right 1-->J up 1-->E right 1-->G down 3-->A left 1-->I down 1-->B left 1-->L up 1-->B left 1-->K up 1-->B left 1-->I up 1-->A right 1-->G up 1-->E left 1-->J down 1-->C left 1-->M down 3-->A right 3-->
+ Runtime: 1.8420014381408691 seconds
+ Search Path Length: 1466
+ Solution Path Length: 57
+ Solution Path: F right 1-->K down 1-->C right 1-->G down 1-->B left 1-->I up 1-->A left 1-->M up 1-->C right 2-->H down 2-->J up 1-->E right 1-->G down 2-->A left 2-->L down 1-->I down 1-->B right 3-->I up 1-->A right 2-->H up 3-->A left 1-->G up 3-->E left 1-->J down 1-->C left 3-->M down 1-->B right 1-->K up 4-->D left 1-->F left 1-->M down 2-->C right 2-->A right 1-->H down 3-->A left 1-->K down 1-->B left 1-->M up 3-->C right 1-->J up 1-->E right 1-->G down 3-->A left 1-->I down 1-->B left 1-->L up 1-->B left 1-->K up 1-->B left 1-->I up 1-->A right 1-->G up 1-->E left 1-->J down 1-->C left 1-->M down 3-->A right 3-->
 
-M up 1	GBB.LMGHI.LMGHIAAMCCCK....JKDDEEJFF.
-F right 1	GBB.LMGHI.LMGHIAAMCCCK....JKDDEEJ.FF
-K down 1	GBB.LMGHI.LMGHIAAMCCC.....JKDDEEJKFF
-C right 3	GBB.LMGHI.LMGHIAAM...CCC..JKDDEEJKFF
-H down 2	GBB.LMG.I.LMG.IAAM.H.CCC.HJKDDEEJKFF
-J up 1	GBB.LMG.I.LMG.IAAM.HJCCC.HJKDDEE.KFF
-E right 1	GBB.LMG.I.LMG.IAAM.HJCCC.HJKDD.EEKFF
-G down 3	.BB.LM..I.LM..IAAMGHJCCCGHJKDDGEEKFF
-B left 1	BB..LM..I.LM..IAAMGHJCCCGHJKDDGEEKFF
-I up 1	BBI.LM..I.LM...AAMGHJCCCGHJKDDGEEKFF
-A left 3	BBI.LM..I.LMAA...MGHJCCCGHJKDDGEEKFF
+F right 1	GBB.L.GHI.LMGHIAAMCCCK.M..JKDDEEJ.FF
+K down 1	GBB.L.GHI.LMGHIAAMCCC..M..JKDDEEJKFF
+C right 1	GBB.L.GHI.LMGHIAAM.CCC.M..JKDDEEJKFF
+G down 1	.BB.L.GHI.LMGHIAAMGCCC.M..JKDDEEJKFF
+B left 1	BB..L.GHI.LMGHIAAMGCCC.M..JKDDEEJKFF
+I up 1	BBI.L.GHI.LMGH.AAMGCCC.M..JKDDEEJKFF
+A left 1	BBI.L.GHI.LMGHAA.MGCCC.M..JKDDEEJKFF
+M up 1	BBI.LMGHI.LMGHAA.MGCCC....JKDDEEJKFF
+C right 2	BBI.LMGHI.LMGHAA.MG..CCC..JKDDEEJKFF
+H down 2	BBI.LMG.I.LMG.AA.MGH.CCC.HJKDDEEJKFF
+J up 1	BBI.LMG.I.LMG.AA.MGHJCCC.HJKDDEE.KFF
+E right 1	BBI.LMG.I.LMG.AA.MGHJCCC.HJKDD.EEKFF
+G down 2	BBI.LM..I.LM..AA.MGHJCCCGHJKDDGEEKFF
+A left 2	BBI.LM..I.LMAA...MGHJCCCGHJKDDGEEKFF
 L down 1	BBI..M..I.LMAA..LMGHJCCCGHJKDDGEEKFF
 I down 1	BB...M..I.LMAAI.LMGHJCCCGHJKDDGEEKFF
 B right 3	...BBM..I.LMAAI.LMGHJCCCGHJKDDGEEKFF
 I up 1	..IBBM..I.LMAA..LMGHJCCCGHJKDDGEEKFF
 A right 2	..IBBM..I.LM..AALMGHJCCCGHJKDDGEEKFF
-G up 3	G.IBBMG.I.LMG.AALM.HJCCC.HJKDD.EEKFF
-H up 3	GHIBBMGHI.LMG.AALM..JCCC..JKDD.EEKFF
-A left 1	GHIBBMGHI.LMGAA.LM..JCCC..JKDD.EEKFF
+H up 3	.HIBBM.HI.LM..AALMG.JCCCG.JKDDGEEKFF
+A left 1	.HIBBM.HI.LM.AA.LMG.JCCCG.JKDDGEEKFF
+G up 3	GHIBBMGHI.LMGAA.LM..JCCC..JKDD.EEKFF
 E left 1	GHIBBMGHI.LMGAA.LM..JCCC..JKDDEE.KFF
 J down 1	GHIBBMGHI.LMGAA.LM...CCC..JKDDEEJKFF
 C left 3	GHIBBMGHI.LMGAA.LMCCC.....JKDDEEJKFF
@@ -42,8 +45,8 @@ K up 4	GHIKBBGHIKLMGAA.LMCCC..M..J.DDEEJ.FF
 D left 1	GHIKBBGHIKLMGAA.LMCCC..M..JDD.EEJ.FF
 F left 1	GHIKBBGHIKLMGAA.LMCCC..M..JDD.EEJFF.
 M down 2	GHIKBBGHIKL.GAA.L.CCC..M..JDDMEEJFFM
-A right 1	GHIKBBGHIKL.G.AAL.CCC..M..JDDMEEJFFM
-C right 2	GHIKBBGHIKL.G.AAL...CCCM..JDDMEEJFFM
+C right 2	GHIKBBGHIKL.GAA.L...CCCM..JDDMEEJFFM
+A right 1	GHIKBBGHIKL.G.AAL...CCCM..JDDMEEJFFM
 H down 3	G.IKBBG.IKL.G.AAL..HCCCM.HJDDMEEJFFM
 A left 1	G.IKBBG.IKL.GAA.L..HCCCM.HJDDMEEJFFM
 K down 1	G.I.BBG.IKL.GAAKL..HCCCM.HJDDMEEJFFM
@@ -67,11 +70,11 @@ E left 1	BBIKLM..IKLMGAA..MGHJCCCGHJDD.EE.FF.
 J down 1	BBIKLM..IKLMGAA..MGH.CCCGHJDD.EEJFF.
 C left 1	BBIKLM..IKLMGAA..MGHCCC.GHJDD.EEJFF.
 M down 3	BBIKL...IKL.GAA...GHCCCMGHJDDMEEJFFM
-A right 3	BBIKL...IKL.G...AAGHCCCMGHJDDMEEJFFM
+A right 3	BBIKL...IKL.G.....GHCCCMGHJDDMEEJFFM
 
 ['B', 'B', 'I', 'K', 'L', '.']
 ['.', '.', 'I', 'K', 'L', '.']
-['G', '.', '.', '.', 'A', 'A']
+['G', '.', '.', '.', '.', '.']
 ['G', 'H', 'C', 'C', 'C', 'M']
 ['G', 'H', 'J', 'D', 'D', 'M']
 ['E', 'E', 'J', 'F', 'F', 'M']

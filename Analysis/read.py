@@ -36,20 +36,20 @@
 #         if "Runtime: " in myline:
 #             print(myline.rstrip("\n"))
 
-# # A/A* Solution Path Length
-# with open('astar_merged.txt', "r") as myfile:
-#     for myline in myfile:
-#         if "Solution Path Length: " in myline:
-#             print(myline.rstrip("\n"))
-#
-# # A/A* Search Path Length
-# with open('astar_merged.txt', "r") as myfile:
-#     for myline in myfile:
-#         if "Search Path Length: " in myline:
-#             print(myline.rstrip("\n"))
-#
-# # A/A* Runtime
-# with open('astar_merged.txt', "r") as myfile:
-#     for myline in myfile:
-#         if "Runtime: " in myline:
-#             print(myline.rstrip("\n"))
+# A/A* Solution Path Length
+with open('astar_merged.txt', "r") as myfile:
+    for myline in myfile:
+        if "Solution Path Length: " in myline:
+            print(myline.rstrip("\n"))
+
+# A/A* Search Path Length
+with open('astar_merged.txt', "r") as myfile:
+    for myline in myfile:
+        if "Search Path Length: " in myline:
+            print(myline.rstrip("\n"))
+
+# A/A* Runtime
+with open('astar_merged.txt', "r") as myfile:
+    for myline in myfile:
+        if "Runtime: " in myline:
+            print(myline.rstrip("\n"))

@@ -9,7 +9,7 @@ Initial board configuration: BBCCC.DD.K..IAAK.LI.JFFLGGJ.....JHHH
 ['.', '.', 'J', 'H', 'H', 'H']
 
  Car fuel available: B:100 C:100 D:100 K:100 I:100 A:100 L:100 J:100 F:100 G:100 H:100 
- Runtime: 0.0074999332427978516 seconds
+ Runtime: 0.0069997310638427734 seconds
  Search Path Length: 7
  Solution Path Length: 4
  Solution Path: L up 2-->F right 1-->K down 2-->A right 3-->
@@ -17,11 +17,11 @@ Initial board configuration: BBCCC.DD.K..IAAK.LI.JFFLGGJ.....JHHH
 L up 2	BBCCCLDD.K.LIAAK..I.JFF.GGJ.....JHHH
 F right 1	BBCCCLDD.K.LIAAK..I.J.FFGGJ.....JHHH
 K down 2	BBCCCLDD...LIAA...I.JKFFGGJK....JHHH
-A right 3	BBCCCLDD...LI...AAI.JKFFGGJK....JHHH
+A right 3	BBCCCLDD...LI.....I.JKFFGGJK....JHHH
 
 ['B', 'B', 'C', 'C', 'C', 'L']
 ['D', 'D', '.', '.', '.', 'L']
-['I', '.', '.', '.', 'A', 'A']
+['I', '.', '.', '.', '.', '.']
 ['I', '.', 'J', 'K', 'F', 'F']
 ['G', 'G', 'J', 'K', '.', '.']
 ['.', '.', 'J', 'H', 'H', 'H']
